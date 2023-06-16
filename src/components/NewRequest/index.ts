@@ -1,0 +1,5 @@
+export { default as GeneralInformation } from './GeneralInformation/GeneralInformation'
+export { default as PessengerDetails } from './passengerDetails/passengerDetails'
+export { default as PackageDetails } from './PackageDetails/PackageDetails'
+export { default as Suggestions } from './Suggestions/Suggestions'
+export { default as Stepper } from './Stepper/Stepper'

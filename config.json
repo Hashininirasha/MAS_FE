@@ -1,0 +1,7 @@
+{
+    "MAS_TMS_API": "https://mas-tms-dev-api-eastus.azurewebsites.net/api",
+    "THEME_COLORS": {
+      "PRIMARY": "#007bff",
+      "SECONDARY": "#fc3"
+    }
+  }

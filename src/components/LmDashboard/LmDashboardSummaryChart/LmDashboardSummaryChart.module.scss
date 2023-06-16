@@ -1,0 +1,20 @@
+@import "../../../assets/theme/constants.scss";
+
+.summaryCard {
+    background-color: $bgColorSidebar !important;
+    padding: 10px 20px;
+
+    .summaryCardTitle {
+        display: flex;
+        align-items: end;
+
+        .main {
+            font-weight: 400;
+            font-size: 18px;
+            color: $white;
+        }
+        .sub {
+            color: #bfbfbf;
+        }
+    }
+}

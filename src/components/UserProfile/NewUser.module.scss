@@ -1,0 +1,176 @@
+@import "../../assets//theme/constants.scss";
+
+.gridContainer {
+    margin: 45px;
+    border-radius: 5px;
+    background-color: $bgColorSidebar;
+    padding-bottom: 40px;
+
+    .gridHeader {
+        display: flex;
+        padding-left: 20px;
+        align-items: center;
+        padding: 5px;
+   
+
+        .gridTitle {
+            color: $white;
+        }
+
+        .sendRequestButton{
+            font-weight: normal !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: $primary;
+            padding-left: 10px;
+            
+        }
+
+        .gridActionButton {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: $bgColor;
+            padding-left: 10px;
+  
+            .icon {
+             
+                font-size: 20px;
+                padding-left: 5px;
+                
+            }
+
+            .text{
+                text-transform: none;
+            }
+        }
+    }
+
+    .grid::-webkit-scrollbar-track {
+        background-color: $bgColorSidebar !important;
+    }
+    .grid::-webkit-scrollbar-thumb {
+        background-color: rgb(146, 146, 146) !important;
+    }
+}
+   
+.outline{
+    padding: 20px;
+
+    .profileimg{
+        width: 100px;
+        height: 100px;
+        border: 5px solid rgba(255, 0, 0, 0.1);
+    }
+}
+
+.personal{
+    padding-top: 15px;
+
+    .headingtitlevehi{  
+
+    }
+
+    .labelsmall{
+        color: $gray;
+        width: 92%;
+        height: 50%;
+        background-color: $bgColor;
+        padding-bottom: 5px;
+        padding-left: 15px;
+        border-radius: 5px;
+        border: 1px solid $bgColor;
+    }
+
+
+    .label{
+        color: $gray;
+        width: 96%;
+        height: 50%;
+        background-color: $bgColor;
+        padding-bottom: 5px;
+        padding-left: 15px;
+        border-radius: 5px;
+        border: 1px solid $bgColor;
+    }
+
+
+    
+    
+      
+}
+
+.contact{
+    padding-top: 130px;
+
+
+    .labelsmall{
+        color: $gray;
+        width: 92%;
+        height: 50%;
+        background-color: $bgColor;
+        padding-bottom: 5px;
+        padding-left: 15px;
+        border-radius: 5px;
+        border: 1px solid $bgColor;
+    }
+
+
+    .label{
+        color: $gray;
+        width: 96%;
+        height: 50%;
+        background-color: $bgColor;
+        padding-bottom: 5px;
+        padding-left: 15px;
+        border-radius: 5px;
+        border: 1px solid $bgColor;
+    }
+
+}
+
+.profile{
+
+    padding-top: 40px;
+
+    .buttonselect {
+        color: white;
+        cursor: pointer;
+        background-color: rgba(255, 0, 0, 0.1); /* Red color with 0.5 opacity */
+        font-size: '15px';
+       
+    }
+
+    .button {
+        color: white;
+        cursor: pointer;
+     
+    }
+    
+    .buttonSec{
+        color: white;
+        cursor: pointer; 
+        text-align: left;
+    }
+    
+}
+
+.verticalline {
+    width: 2px;
+    height: 100px;
+    background-color: white;
+   
+  }
+
+  .name{
+    margin-bottom: 4px;
+
+    
+  }
+
+  .designation{
+    margin-top: 0px;
+    margin-bottom: 8px;
+}
+

@@ -1,0 +1,123 @@
+@import "../../../assets/theme/constants.scss";
+
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+}
+
+.gridContainer {
+  margin: $pageMargin;
+  border-radius: 5px;
+  background-color: $bgColorSidebar;
+  padding-bottom: 40px;
+
+  .gridHeader {
+    display: flex;
+    padding: 20px;
+    align-items: center;
+
+    .gridActionButton {
+      padding: 5px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background-color: $primary;
+
+      .icon {
+        margin-right: 4px;
+        font-size: 20px;
+      }
+
+      .text {
+        text-transform: none;
+      }
+
+      .selectField {
+        fieldset {
+          border-color: rgb(235, 235, 235);
+        }
+        min-width: 100%;
+        color: rgb(235, 235, 235);
+      }
+    }
+  }
+
+  .grid::-webkit-scrollbar-track {
+    background-color: $bgColorSidebar !important;
+  }
+  .grid::-webkit-scrollbar-thumb {
+    background-color: rgb(146, 146, 146) !important;
+  }
+}
+
+.actionColumn {
+  position: sticky !important;
+  right: 0 !important;
+  z-index: 1 !important;
+}
+
+.info_heading {
+  top: 0;
+  position: sticky;
+  z-index: 1;
+  /* THIS CODE SHOULD BE CHANGED */
+  background-color: rgb(67, 67, 67);
+  height: 5vh;
+  width: 100%;
+  margin-bottom: 5vh;
+  font-size: large;
+}
+
+.info_heading h1 {
+  margin-left: 2vh;
+  padding-top: 1vh;
+}
+
+.info_form {
+  margin: auto 5vh;
+}
+
+.customTextField {
+  fieldset {
+    border-color: rgb(235, 235, 235);
+  }
+  input {
+    color: rgb(235, 235, 235);
+  }
+}
+.grid {
+  margin-left: 3%;
+}
+.dataGrid {
+  margin: auto 4%;
+  color: white;
+  max-width: 90%;
+}
+
+.dataGrid .MuiDataGrid {
+  color: white;
+}
+
+.selectField {
+  fieldset: {
+    border-color: rgb(235, 235, 235);
+  }
+}
+
+.selectInput {
+  min-width: 100%;
+  color: rgb(235, 235, 235);
+}
+
+.errorMessage {
+  color: $primary;
+}
+
+.popupContainer {
+  background-color: $bgColorSidebar;
+  color: rgb(235, 235, 235);
+}
+
+.table {
+  width: max-content !important;
+  margin-left: 1vh;
+}

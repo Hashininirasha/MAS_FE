@@ -1,0 +1,16 @@
+@import "../../../assets/theme/constants.scss";
+
+.viewSummaryCard {
+  background-color: $bgColorSidebar !important;
+
+  .viewSummaryCardDataRow {
+    display: flex;
+    align-items: center;
+
+    .data {
+      font-weight: 400;
+      font-size: 18px;
+      color: $white;
+    }
+  }
+}

@@ -1,0 +1,10 @@
+@import "../../../assets/theme/constants.scss";
+
+.switchField {
+  display: flex;
+  align-items: center;
+
+  .label {
+    margin-right: 10px;
+  }
+}

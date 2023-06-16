@@ -1,0 +1,319 @@
+@import "../../assets//theme/constants.scss";
+
+.gridContainer {
+    margin: 45px;
+    border-radius: 5px;
+    background-color: $bgColorSidebar;
+    padding-bottom: 40px;
+
+    .gridHeader {
+        display: flex;
+        padding: 20px;
+        align-items: center;
+
+        .gridTitle {
+            color: $white;
+        }
+
+        .sendRequestButton{
+            font-weight: normal !important;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: $primary;
+            padding-left: 10px;
+            
+        }
+
+        .gridActionButton {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: $bgColor;
+            padding-left: 10px;
+  
+            .icon {
+             
+                font-size: 20px;
+                padding-left: 5px;
+                
+            }
+
+            .text{
+                text-transform: none;
+            }
+        }
+    }
+
+    .grid::-webkit-scrollbar-track {
+        background-color: $bgColorSidebar !important;
+    }
+    .grid::-webkit-scrollbar-thumb {
+        background-color: rgb(146, 146, 146) !important;
+    }
+}
+   
+
+.customform {
+    .MuiOutlinedInput-notchedOutline {
+      border-color: white !important;
+    }
+  
+    .MuiInputBase-input {
+      color: white !important;
+    }
+  }
+
+  .title {
+    color: $white !important;
+    background-color: rgb(146, 146, 146) !important;
+}
+
+.titletextbox {
+    color: $white !important;
+    text-align: left;
+    // width: 50% !important;
+    // padding-left: 10px !important;
+    max-width: 520px !important;
+   
+  
+    // margin-bottom: 10px !important;
+    // outline:  white !important;
+    // input::placeholder {
+    //   color: $white !important; /* Set the placeholder color to white */
+    // }
+  }
+
+  
+
+  .titletextboxdropdown {
+    color: $white !important;
+    width: 100% !important;
+    padding-left: 0px !important;
+    max-width: 550px !important;
+    padding-right: 0px !important;
+    margin-left: 0px !important;
+  
+   
+  }
+
+  .titletextboxincident {
+    color: $white !important;
+    width: 100% !important;
+    padding-left: 0px !important;
+    max-width:1095px !important;
+    padding-right: 30px !important;
+    margin-left: 0px !important;
+    margin-bottom: 10px !important;
+    border: white !important;
+    outline-color: #ffffff !important;
+   
+
+    & .MuiSelect-root.MuiSelect-select.MuiSelect-select {
+      outline-color: white !important;
+    }
+
+    .MuiInputBase-input {
+      &::placeholder {
+        color: white !important;
+      }
+    }
+  }
+
+
+  
+  
+  /* Responsive Styles */
+  @media (min-width: 700px) {
+    .titletextbox {
+      width: 700px !important;
+    }
+   
+  }
+
+.inputlabel{
+    color: $white !important;
+    width: auto !important;
+    padding: 20px !important;
+   
+   
+}
+
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: white !important;
+}
+
+.focusedInput {
+  /* Styles for focused state */
+  color: white !important;
+
+}
+
+.whiteOutline {
+  border-color: white !important;
+  color: white !important;
+}
+
+
+
+.headingtitle{
+  padding-left: 0px;
+}
+.titletextboxVehi{
+
+   color: $white !important;
+    width: 100% !important;
+    padding-left: 0px !important;
+    max-width: 550px !important;
+    padding-bottom: 5px !important;
+   
+  
+    margin-bottom: 10px !important;
+    outline:  white !important;
+    input::placeholder {
+      color: $white !important; /* Set the placeholder color to white */
+    }
+  }
+  .headingtitlevehi {
+    text-align: left;
+    
+  }
+  
+
+  .calendarButton{
+    color: $white !important;
+ 
+  }
+
+  .tablealign{
+    margin-left: 25px !important;
+  }
+
+  .titletextboxtext{
+
+    color: $white !important;
+    
+   
+  
+  }
+
+
+  .use {
+    background-color: red !important;
+    color: white !important;
+    font-weight: normal;
+    text-align: left;
+    text-transform: none !important;
+  }
+  
+  
+  
+  .del {
+    background-color: black !important;
+    color: white !important;
+    font-weight: normal;
+    text-align: left;
+    border: 1px solid white !important;
+    margin-right: 10px !important;
+    text-transform: none !important;
+  
+    @media (max-width: 600px) {
+      margin-right: 0 !important;
+      margin-bottom: 10px !important;
+    }
+  }
+
+  .add {
+    background-color: $black !important;
+    color: white !important;
+    font-weight: normal;
+    text-align: left;
+    text-transform: none !important;
+    border: 1px solid white !important;
+  }
+  
+  .btnfirst {
+    padding-left: 950px;
+    padding-bottom: 10px;
+    display: flex;
+    align-items: center;
+  }
+  
+  .clear {
+    background-color: $gray !important;
+    color: white !important;
+    font-weight: normal;
+    text-align: left;
+    border: 1px solid white !important;
+    margin-right: 10px !important;
+    text-transform: none !important;
+  
+    @media (max-width: 600px) {
+      margin-right: 0 !important;
+      margin-bottom: 10px !important;
+    }
+  }
+
+  .selectPlaceholder{
+    color: $gray !important;
+  }
+
+  .vehitypedropdown {
+    color: $white !important;
+    width: 100% !important;
+    padding-left: 10px !important;
+    max-width: 550px !important;
+    padding-right: 0px !important;
+    margin-left: 0px !important;
+  
+   
+  }
+
+  .dropdownName{
+    text-align: left;
+    padding-left: 15px;
+  }
+  
+  .dropdownform{
+    width: 98% !important;
+    padding-left: 15px !important;
+    color: $gray !important;
+  }
+  
+  .dropdownInput{
+    padding-left: 15px !important;
+    color: $gray !important;
+  }
+  
+  .textboxtitle{
+    padding-left: 15px !important;
+  }
+  
+  .textboxinput{
+    width: 98% !important;
+    padding-left: 15px !important;
+  }
+  
+  .incident{
+    padding-left: 15px !important;
+  
+  }
+  
+  .inicidentText{
+    width: 98.5% !important;
+    padding-left: 15px !important;
+  }
+  
+  .calendarButtonicon{
+    color: $white !important;
+  }
+  
+  .recIncident{
+    padding-left: 30px;
+  }
+
+  .btn{
+    width: 100% !important;
+  }
+
+  

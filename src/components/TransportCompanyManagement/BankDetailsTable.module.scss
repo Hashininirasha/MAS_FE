@@ -1,0 +1,71 @@
+@import "../../assets//theme/constants.scss";
+
+
+.tablestyle{
+    color: $white !important;
+    background-color: $bgColor !important ;
+    
+
+
+    .tablecell{
+        color: $white !important;
+      
+       
+    }
+
+    .tablehead{
+        color: $white !important;
+        background-color: $bgColor !important ;
+    }
+    
+    .box{
+        padding-left: 25px !important;
+    }
+}
+
+.dataGrid {
+  color: $white !important;
+  background-color: $gray !important ;
+  
+}
+
+.columnHeader {
+    font-weight: bold;
+    color: white !important;
+  }
+  
+  .cell {
+    color: white !important;
+    // border: 1px solid #fff !important;
+   
+  }
+  
+
+  .table{
+    padding-left: 15px;
+    padding-right: 15px;
+  }
+
+  /* Table.module.scss */
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.paginationButton {
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+}
+
+.paginationButton button {
+  color: white; /* Set the pagination button text color to white */
+}
+
+.paginationSummary {
+  color: white; /* Set the pagination summary text color to white */
+}
+
