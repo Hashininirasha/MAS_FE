@@ -1,68 +1,64 @@
 import React from 'react';
 import { DataGrid, GridColDef, GridCellParams } from '@mui/x-data-grid';
 import styles from './TableAssign.module.scss'
+import { useDispatch, useSelector } from 'react-redux';
+import Switch from '@mui/material/Switch';
+
+export default function DataTableassign() {
+
+  const dispatch = useDispatch();
+  const AssignVehicleList = useSelector((state:any) => state.ReducerDriver.AssignVehicleList);
+
 
 const columns: GridColDef[] = [
+
   {
-    field: 'id',
-    headerName: '#',
-    width: 130,
-    renderHeader: () => <span className={styles.columnHeader} >#</span>,
+    field: 'Plant',
+    headerName: 'Plant',
+    width: 700,
+    renderHeader: () => <span className={styles.columnHeader}>Plant</span>,
     renderCell: (params: GridCellParams) => (
-      <span className={styles.cell}>{params.value as React.ReactNode}</span>
+      <span className={styles.cell}>{String(params.value)}</span>
     ),
   },
+  
   {
-    field: 'vehitype',
+    field: 'VehicleType',
     headerName: 'VehicleType',
-    width: 380,
-    renderHeader: () => <span className={styles.columnHeader}>Vehicle Type</span>,
+    width: 150,
+    renderHeader: () => <span className={styles.columnHeader}>VehicleType</span>,
     renderCell: (params: GridCellParams) => (
-      <span className={styles.cell}>{params.value as React.ReactNode}</span>
+      <span className={styles.cell}>{String(params.value)}</span>
     ),
   },
+  
   {
-    field: 'vehinum',
+    field: 'VehicleNumber',
     headerName: 'VehicleNumber',
-    width: 300,
-    renderHeader: () => <span className={styles.columnHeader}>Vehicle Number</span>,
+    width: 200,
+    renderHeader: () => <span className={styles.columnHeader}>VehicleNumber</span>,
     renderCell: (params: GridCellParams) => (
       <span className={styles.cell}>{params.value as React.ReactNode}</span>
     ),
   },
   
-  {
-    field: 'sbu',
-    headerName: 'SBU/Plant',
-    width: 250,
-    renderHeader: () => <span className={styles.columnHeader}>SBU/Plant</span>,
-    renderCell: (params: GridCellParams) => (
-      <span className={styles.cell}>{params.value as React.ReactNode}</span>
-    ),
-  },
 ];
 
-const rows = [
-  { id: 1, vehinum: 'CAC 3526', vehitype: 'Car', sbu: 'MAS Kreeda' },
-  { id: 2, vehinum: 'ABN 7822', vehitype: 'Van', sbu: 'MAS Intima' },
-  { id: 3, vehinum: 'RTB 2596', vehitype: 'Car', sbu: 'MAS Intima' },
-  { id: 4, vehinum: 'ERN 2598', vehitype: 'Van', sbu: 'MAS Kreeda' },
-  { id: 5, vehinum: 'HNU 2598', vehitype: 'Van', sbu: 'MAS Kreeda' },
-  { id: 6, vehinum: 'WVN 23987', vehitype: 'Van', sbu: 'MAS Intima' },
-  { id: 7, vehinum: 'TYN 8502', vehitype: 'Van', sbu: 'MAS Intima' },
-  { id: 8, vehinum: 'TNM 8532', vehitype: 'Van', sbu: 'MAS Kreeda' },
-  { id: 9, vehinum: 'TNM 8502', vehitype: 'Car', sbu: 'MAS Intima' },
-  { id: 10, vehinum: 'ACB 8502', vehitype: 'Car', sbu: 'MAS Kreeda' },
-  { id: 11, vehinum: 'TNM 7823', vehitype: 'Car', sbu: 'MAS Intima' },
-];
+// const rows = [
+//   {Incident: 'Jon', Date: new Date('2023-07-22'),  Outcome: 'Driver' },
+
+// ];
 
 
 
-export default function DataTableassign() {
-  return (
-    <div className={styles.table} style={{ height: 370, width: '100%' }}>
+return (
+
+
+    <div className={styles.table}>
       <DataGrid
-        rows={rows}
+     getRowId={(row) => String(row.Plant)}
+        rows={AssignVehicleList}
+        
         columns={columns}
         initialState={{
           pagination: {
@@ -70,8 +66,9 @@ export default function DataTableassign() {
           },
         }}
         className={styles.dataGrid} 
+        
       />
     </div>
-  );
-  
+ );
+
 }

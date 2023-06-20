@@ -20,25 +20,58 @@ const TMVehicle = () => {
 
   
   const dispatch = useDispatch();
-  const companyId = useSelector((state: any) => state.ReducerVehicle.companyId);
+  // const plantList = useSelector((state: any) => state.ReducerVehicle.plantList);
   // const plantListshow = useSelector((state: any) => state.ReducerVehicle.plantList);
  const VehicleTypelist = useSelector((state: any) => state.ReducerVehicle.VehicleTypelist);
 //  const CompanyNamelist = [] as any[];
 
  const CompanyNamelist=useSelector((state: any) => state.ReducerVehicle.CompanyNamelist);
 
+ const plantList =useSelector((state: any) => state.ReducerVehicle.plantList);
+
+ const [CompanyId, setCompanyId] = useState(0)
+
+
+
+
+
+
+
+ const handleChange = (event:any) => {
+  const { name, value } = event.target;
+  setvehicleaddData((prevState) => ({
+    ...prevState,
+    [name]: value,
+  }));
+
+   setCompanyId (event.target.value) ;
+
+store.dispatch(getPlants(CompanyId));
+
+
+debugger
+
+};
+
+
 
   useEffect(() => {
   
-    store.dispatch(getPlants( companyId ));
+    store.dispatch(getPlants( CompanyId ));
+    debugger
 
     store.dispatch(getVehicleType());
 
     store.dispatch(getCompanyName());
 
-    
+  }, [dispatch, CompanyId]);
 
-  }, [dispatch]);
+
+  useEffect(() => {
+  
+debugger  
+
+  }, [plantList]);
 
 
   const [com_name_isPlaceholderVisible, setcom_name_isPlaceholderVisible] = React.useState(true);
@@ -65,16 +98,16 @@ const TMVehicle = () => {
   }
 
 
-
+  
   const [CompanyName, setCompanyName] = useState('')
   const [VehicleType, setVehicleType] = useState('')
-  const [plant, setplant] = useState('')
+  const [Plant, setplant] = useState('')
 
   const vehicleadd: IVehicleadd = {
     CompnayName: CompanyName,
     VehicleNumber: "",
     VehicleType: VehicleType,
-    Plant: plant,
+    Plant: Plant,
     Seats: 0,
     CBM: 0,
     IncidetnDetails: incidentsList
@@ -103,16 +136,10 @@ const TMVehicle = () => {
   });
 
 
-  const handleChange = (event:any) => {
-    const { name, value } = event.target;
-    setvehicleaddData((prevState) => ({
-      ...prevState,
-      [name]: value,
-    }));
+  
 
-    setSelectedCompanyId(event.target.value);
+  
 
-  };
 
   const handleIncidentDetailChange = (event:any) => {
     const { name, value } = event.target;
@@ -132,7 +159,8 @@ const TMVehicle = () => {
       ...prevState,
       IncidetnDetails: incidentsList,
     }));
-    dispatch(addIncidentMethodList(incidentData));    
+    dispatch(addIncidentMethodList(incidentData));  
+  
   }
 
   const ClearIncidentDetails=()=>{
@@ -145,7 +173,7 @@ const TMVehicle = () => {
     navigate(APP_ROUTES.TM_VEHICLE_MANAGEMENT)
   }
 
-  const [selectedCompanyId, setSelectedCompanyId] = useState('');
+  // const [selectedCompanyId, setSelectedCompanyId] = useState('');
 
   
   return (
@@ -222,9 +250,8 @@ const TMVehicle = () => {
 ))}
 
 </Select>
-{/* <p>Selected Company ID: {selectedCompanyId}</p> */}
-
-
+{/* 
+<p>Selected Company ID: {selectedCompanyId}</p> */}
         </FormControl>
 
 
@@ -309,6 +336,8 @@ const TMVehicle = () => {
     </MenuItem>
   ))}
           </Select>
+      
+
         </FormControl>
 
 </Grid>
@@ -350,14 +379,19 @@ const TMVehicle = () => {
          labelId="option1-label"
          id="option1"
          value={vehicleaddData.Plant}
+
          onChange={handleChange}
          name="Plant"
          onClick={()=>{setplant_name_isPlaceholderVisible(false)}}>
-      {companyId.map((plantName:any) => (
-      <MenuItem key={plantName.id} value={selectedCompanyId}>
-        {plantName.name}
-      </MenuItem>
-    ))}  
+  
+      {plantList && plantList.map((plantName: any) => (
+  <MenuItem key={plantName.id} value={CompanyId}>
+    {plantName.name}
+  
+  </MenuItem>
+))}
+
+
           </Select>
     
         </FormControl>      

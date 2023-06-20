@@ -3,6 +3,8 @@ import requestReducer from "./request.reducer";
 import vehicleReducer from "./vehicle.reducer";
 import transportcompanyReducer from "./transportcompany.reducer";
 import ReducerVehicle from "./vehicleadd.reducer"
+import ReducerDriver from "./driveradd.reducer";
+
 
 
 
@@ -11,7 +13,7 @@ const rootReducer = combineReducers({
     vehicle: vehicleReducer,
     transportCompany:transportcompanyReducer,
     ReducerVehicle: ReducerVehicle,
-    
+    ReducerDriver:ReducerDriver,
 })
 
 export default rootReducer

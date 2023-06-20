@@ -23,16 +23,16 @@ export  const TransportCompanyInsertGrid = () => {
   const dispatch = useDispatch();
 
 
-  const paymentMethods = [
-    { value: '1', name: 'Cash' },
-    { value: '2', name: 'Check' },
-    { value: '3', name: 'Online' },
-  ];
+  // const paymentMethods = [
+  //   { value: '1', name: 'Cash' },
+  //   { value: '2', name: 'Check' },
+  //   { value: '3', name: 'Online' },
+  // ];
 
-  const getPaymentMethodName = (value:any) => {
-    const selectedMethod = paymentMethods.find((method) => method.value === value);
-    return selectedMethod ? selectedMethod.name : '';
-  };
+  // const getPaymentMethodName = (value:any) => {
+  //   const selectedMethod = paymentMethods.find((method) => method.value === value);
+  //   return selectedMethod ? selectedMethod.name : '';
+  // };
 
   const [selectedOption, setSelectedOption] = useState('');
 
@@ -99,7 +99,7 @@ export  const TransportCompanyInsertGrid = () => {
       ...prevState,
       [name]: value,
     }));
-    setSelectedOption(event.target.value);
+    // setSelectedOption(event.target.value);
   };
 
   const handlePaymentDetailChange = (event:any) => {
@@ -108,7 +108,7 @@ export  const TransportCompanyInsertGrid = () => {
       ...prevState,
       [name]: value,
     }));
-    setSelectedOption(event.target.value);
+    // setSelectedOption(event.target.value);
   };
 
   const AddPaymentDetails=()=>{
@@ -536,14 +536,12 @@ export  const TransportCompanyInsertGrid = () => {
     onChange={handlePaymentDetailChange}
     onClick={()=>{setIsPlaceholderVisible2(false)}}
   >
-    {paymentMethods.map((method) => (
-            <MenuItem key={method.value} value={method.value}>
-              {method.name}
-            </MenuItem>
-          ))}
+   <MenuItem value="1">Cash</MenuItem>
+    <MenuItem value="2">Check</MenuItem>
+    <MenuItem value="3">Online</MenuItem>
   </Select>
 </FormControl>
-<p>Selected option: {getPaymentMethodName(selectedOption)}</p>
+{/* <p>Selected option: {getPaymentMethodName(selectedOption)}</p> */}
      
 </Grid>
 
@@ -590,9 +588,9 @@ export  const TransportCompanyInsertGrid = () => {
     name="Bank"
     onClick={()=>{setIsPlaceholderVisible3(false)}}
   >
-    <MenuItem value="1">Bank Of Ceylon</MenuItem>
-    <MenuItem value="2">Peoples Bank</MenuItem>
-    <MenuItem value="3">Commercial Bank</MenuItem>
+    <MenuItem value="1" id="Bank Of Ceylon">Bank Of Ceylon</MenuItem>
+    <MenuItem value="2" id="Peoples Bank">Peoples Bank</MenuItem>
+    <MenuItem value="3" id="Commercial Bank">Commercial Bank</MenuItem>
   </Select>
 </FormControl>
   
@@ -707,4 +705,3 @@ export  const TransportCompanyInsertGrid = () => {
      );
    };
   
-

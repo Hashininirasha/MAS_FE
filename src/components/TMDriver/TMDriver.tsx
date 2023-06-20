@@ -7,62 +7,26 @@ import DataTableassign from './TableAssignVehi'
 import Recincident from './TableRecinci'
 import TablePrevious from './TablePrevious'
 
+import IDriverAdd, { IAssignVehicle, IIncident, IPreviousWorks } from '../../types/addDriver';
+import { useDispatch } from 'react-redux';
+import { addAssignVehicleList, addincidentsList, addpreviousWorksList } from '../../redux/reducers/driveradd.reducer';
+
+
+const assignVehicleList:IAssignVehicle[]=[]
+const incidentsList:IIncident[]=[]
+const previousWorksList:IPreviousWorks[]=[]
+
 const TMDriver = () => {
 
-
-  const [trans_com_isPlaceholderVisible, trans_com_setIsPlaceholderVisible] = React.useState(true);
-
-  const trans_com_handleSelectClick = () => {
-    trans_com_setIsPlaceholderVisible(false);
-  };
-
-  const [plant_isPlaceholderVisible, plant_setIsPlaceholderVisible] = React.useState(true);
-
-  const plant_handleSelectClick = () => {
-    plant_setIsPlaceholderVisible(false);
-  };
-
-  const [vehiType_isPlaceholderVisible, vehiType_setIsPlaceholderVisible] = React.useState(true);
-
-  const vehiType_handleSelectClick = () => {
-    vehiType_setIsPlaceholderVisible(false);
-  };
   
-  const [vehiNum_isPlaceholderVisible, vehiNum_setIsPlaceholderVisible] = React.useState(true);
+  const dispatch = useDispatch();
 
-  const vehiNum_handleSelectClick = () => {
-    vehiNum_setIsPlaceholderVisible(false);
-  };
-  const [vehiNumIncident_isPlaceholderVisible, vehiNumIncident_setIsPlaceholderVisible] = React.useState(true);
-
-  const vehiNumIncident_handleSelectClick = () => {
-    vehiNumIncident_setIsPlaceholderVisible(false);
-  };
-  const [trans_com_selectedOption, trans_com_setSelectedOption] = useState('');
-  const [plant_selectedOption, plant_setSelectedOption] = useState('');
-  const [vehiType_selectedOption, vehiType_setSelectedOption] = useState('');
-  const [vehiNum_selectedOption, vehiNum_setSelectedOption] = useState('');
-  const [vehiNumIncident_selectedOption, vehiNumIncident_setSelectedOption] = useState('');
-
-  const trans_com_handleChangeOption = (event: any) => {
-    trans_com_setSelectedOption(event.target.value);
-  };
-
-  const plant_handleChangeOption = (event: any) => {
-    plant_setSelectedOption(event.target.value);
-  };
-
-  const vehiType_handleChangeOption = (event: any) => {
-    vehiType_setSelectedOption(event.target.value);
-  };
-
-  const vehiNum_handleChangeOption = (event: any) => {
-    vehiNum_setSelectedOption(event.target.value);
-  };
-
-  const vehiNumIncident_handleChangeOption = (event: any) => {
-    vehiNumIncident_setSelectedOption(event.target.value);
-  };
+const [trans_com_isPlaceholderVisible, trans_com_setIsPlaceholderVisible] = React.useState(true);
+const [plant_isPlaceholderVisible, plant_setIsPlaceholderVisible] = React.useState(true);
+const [vehiType_isPlaceholderVisible, vehiType_setIsPlaceholderVisible] = React.useState(true);
+const [vehiNum_isPlaceholderVisible, vehiNum_setIsPlaceholderVisible] = React.useState(true);
+const [vehiNumIncident_isPlaceholderVisible, vehiNumIncident_setIsPlaceholderVisible] = React.useState(true);
+const [SBUPreWorks_isPlaceholderVisible, SBUPreWorks_setIsPlaceholderVisible] = React.useState(true);
 
   const [date, setDate] = useState('');
   console.log("date", date);
@@ -71,6 +35,197 @@ const TMDriver = () => {
   const handleNewRequest = () => {
 
     navigate(APP_ROUTES.TM_DRIVER_MANAGEMENT)
+  }
+
+  
+  const [Plant, setPlant] = useState('')
+  const [VehicleType, setVehicleType] = useState('')
+  const [VehicleNumber, setVehicleNumber] = useState('')
+
+    const AssingVehicleDetailsInitial: IAssignVehicle={
+      Plant:"",
+      VehicleType: "",
+      VehicleNumber:"",
+   
+  }
+
+  const AssingVehicle: IAssignVehicle={
+    Plant:Plant,
+    VehicleType:VehicleType,
+    VehicleNumber:VehicleNumber,
+  }
+
+  const [VehiNumber, setVehiNumber] = useState('')
+
+    const IncidentDetailsInitial: IIncident={
+      Incident:"",
+    Date:new Date,
+    Outcome:"",
+    VehiNumber:"",
+   
+  }
+
+  const Incidents: IIncident={
+    Incident:"",
+    Date:new Date,
+    Outcome:"",
+    VehiNumber:VehiNumber,
+  }
+
+
+  const [SBU, setSBU] = useState('')
+
+    const PreviousWorksInitial: IPreviousWorks={
+      SBU:"",
+      FromDate: new Date,
+      ToDate:new Date,
+   
+  }
+
+  const previousWorks: IPreviousWorks={
+    SBU:SBU,
+    FromDate: new Date,
+    ToDate:new Date,
+  }
+
+
+
+
+
+  const [TrasportCompany, setTrasportCompany] = useState('')
+
+
+  const driveradd: IDriverAdd = {
+    DriverName: "",
+    TrasportCompany: TrasportCompany,
+    NIC: "",
+    License: "",
+    IAssignVehicleDetails: assignVehicleList,
+    IIncidentDetails:incidentsList,
+    IPreviousWorksDetails:previousWorksList
+  };
+
+  const [driveraddData, setdriveraddData] = useState({
+    DriverName: driveradd.DriverName,
+    TrasportCompany: driveradd.TrasportCompany,
+    NIC:driveradd.NIC,
+    License:driveradd.License,
+    IAssignVehicleDetails: assignVehicleList,
+    IIncidentDetails:incidentsList,
+    IPreviousWorksDetails:previousWorksList
+  });
+
+  
+
+
+  const [assignVehicleData, setassignVehicleData] = useState({
+    Plant:Plant,
+    VehicleType:VehicleType,
+    VehicleNumber:VehicleNumber,
+
+  });
+
+
+  const handleChange = (event:any) => {
+    const { name, value } = event.target;
+    setdriveraddData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+
+  };
+
+  const handleDriverDetailChange = (event:any) => {
+    const { name, value } = event.target;
+    setassignVehicleData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const AddDriverDetails=()=>{
+    // assignVehicleData.Plant=new Date().getUTCMilliseconds().toString();
+    assignVehicleList.push(assignVehicleData);
+    setassignVehicleData(AssingVehicleDetailsInitial);
+    setassignVehicleData((prevState) => ({
+      ...prevState,
+      IAssignVehicleDetails: assignVehicleList,
+    }));
+    dispatch(addAssignVehicleList(assignVehicleData));
+    
+  }
+
+  const ClearDriverDetails=()=>{
+    setassignVehicleData(AssingVehicleDetailsInitial);
+  }
+
+ 
+
+  const [IncidentData, setIncidentData] = useState({
+    Incident:Incidents.Incident,
+    Date:Incidents.Date,
+    Outcome:Incidents.Outcome,
+    VehiNumber:VehiNumber,
+  });
+
+  const handleIncidentChange = (event:any) => {
+    const { name, value } = event.target;
+    setIncidentData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+ 
+  }
+
+
+  const AddIncidentDetails=()=>{
+    // IncidentData.Incident=new Date().getUTCMilliseconds().toString();
+    incidentsList.push(IncidentData);
+    setIncidentData(IncidentDetailsInitial);
+    setIncidentData((prevState) => ({
+      ...prevState,
+      IIncidentDetails: incidentsList,
+    }));
+    dispatch(addincidentsList(IncidentData));
+    
+  }
+
+  const ClearIncidentDetails=()=>{
+    setIncidentData(IncidentDetailsInitial);
+  }
+
+  const [PreWorksData, setPreWorksData] = useState({
+    SBU:SBU,
+    FromDate: previousWorks.FromDate,
+    ToDate:previousWorks.ToDate,
+
+  });
+
+
+  const handlePreWorkChange = (event:any) => {
+    const { name, value } = event.target;
+    setPreWorksData((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+
+  };
+
+
+  const AddPreWorksDetails=()=>{
+ 
+    previousWorksList.push(PreWorksData);
+    setPreWorksData(PreviousWorksInitial);
+    setPreWorksData((prevState) => ({
+      ...prevState,
+      IPreviousWorksDetails: previousWorksList,
+    }));
+    dispatch(addpreviousWorksList(PreWorksData));
+    
+  }
+
+  const ClearPreWorksDetails=()=>{
+    setPreWorksData(PreviousWorksInitial);
   }
 
   return (
@@ -101,6 +256,9 @@ const TMDriver = () => {
             id="driverName"
             variant="outlined"
             className={style.textboxinput}
+            name="DriverName"
+            value={driveraddData.DriverName}
+            onChange={handleChange}
             InputProps={{
               classes: {
                 focused: style.focusedInput,
@@ -155,9 +313,13 @@ const TMDriver = () => {
   <Select
     labelId="transport_Company"
     id="transport_Company"
-    value={trans_com_selectedOption}
-    onChange={trans_com_handleChangeOption}
-    onClick={trans_com_handleSelectClick}
+
+    name="TrasportCompany"
+            value={driveraddData.TrasportCompany}
+            onChange={handleChange}
+
+   
+            onClick={() => {trans_com_setIsPlaceholderVisible(false)}}
     
   >
     <MenuItem value="option1Value1">Option 1 Value 1</MenuItem>
@@ -183,6 +345,9 @@ const TMDriver = () => {
             id="driverNIC-basic"
             variant="outlined"
             className={style.textboxinput}
+            name="NIC"
+            value={driveraddData.NIC}
+            onChange={handleChange}
             InputProps={{
               classes: {
                 focused: style.focusedInput,
@@ -205,6 +370,9 @@ const TMDriver = () => {
             id="driverLicense-basic"
             variant="outlined"
             className={style.textboxinput}
+            name="License"
+            value={driveraddData.License}
+            onChange={handleChange}
             InputProps={{
               classes: {
                 focused: style.focusedInput,
@@ -270,11 +438,11 @@ className={style.dropdownform}
   <Select
     labelId="palnt-label"
     id="plant"
-    value={plant_selectedOption}
-    onChange={plant_handleChangeOption}
-    onClick={plant_handleSelectClick}
+    value={assignVehicleData.Plant}
+    onChange={handleDriverDetailChange}
+    name="Plant"
+    onClick={()=>{plant_setIsPlaceholderVisible(false)}}>
 
-  >
     <MenuItem value="option1Value1">Option 1 Value 1</MenuItem>
     <MenuItem value="option1Value2">Option 1 Value 2</MenuItem>
     <MenuItem value="option1Value3">Option 1 Value 3</MenuItem>
@@ -323,11 +491,11 @@ className={style.dropdownform}
   <Select
     labelId="vehiType-label"
     id="vehiType"
-    value={vehiType_selectedOption}
-    onChange={vehiType_handleChangeOption}
-    onClick={vehiType_handleSelectClick}
-    style={{ width: '100%'}}
-  >
+    value={assignVehicleData.VehicleType}
+    onChange={handleDriverDetailChange}
+    name="VehicleType"
+    onClick={()=>{vehiType_setIsPlaceholderVisible(false)}}>
+  
     <MenuItem value="option1Value1">Option 1 Value 1</MenuItem>
     <MenuItem value="option1Value2">Option 1 Value 2</MenuItem>
     <MenuItem value="option1Value3">Option 1 Value 3</MenuItem>
@@ -374,11 +542,11 @@ className={style.dropdownform}
   <Select
     labelId="vehiNum-label"
     id="vehiNum"
-    value={vehiNum_selectedOption}
-    onChange={vehiNum_handleChangeOption}
-    onClick={vehiNum_handleSelectClick}
-  
-  >
+    value={assignVehicleData.VehicleNumber}
+    onChange={handleDriverDetailChange}
+    name="VehicleNumber"
+    onClick={()=>{vehiNum_setIsPlaceholderVisible(false)}}>
+
     <MenuItem value="option1Value1">Option 1 Value 1</MenuItem>
     <MenuItem value="option1Value2">Option 1 Value 2</MenuItem>
     <MenuItem value="option1Value3">Option 1 Value 3</MenuItem>
@@ -403,8 +571,8 @@ className={style.dropdownform}
   </Grid>
   <Grid item md={3} xs={3} sm={12}>
 <div className={style.btn}>
-            <Button className={style.clear}>Clear</Button>
-            <Button className={style.add}>Add</Button>
+            <Button className={style.clear} onClick={()=>{ClearDriverDetails()}}>Clear</Button>
+            <Button className={style.add} onClick={()=>{AddDriverDetails()}}>Add</Button>
           </div>
 
           </Grid>
@@ -430,6 +598,9 @@ className={style.dropdownform}
           placeholder="Enter Incident"
           multiline
           className={style.inicidentText}
+          name="Incident"
+            value={IncidentData.Incident}
+            onChange={handleIncidentChange}
           InputProps={{
             classes: {
               focused: style.focusedInput,
@@ -455,7 +626,9 @@ className={style.dropdownform}
           <TextField
         type="date"
         id="date"
-        
+        name="Date"
+            value={IncidentData.Date}
+            onChange={handleIncidentChange}
         
         className={style.inicidentText}
         InputProps={{
@@ -467,7 +640,7 @@ className={style.dropdownform}
             color: 'white', 
           }
         }}
-        onChange={e => setDate(e.target.value)}
+        // onChange={e => setDate(e.target.value)}
       />
 
 <style>{`
@@ -485,7 +658,10 @@ className={style.dropdownform}
           <TextField
             id="outcome-basic"
             variant="outlined"
-            className={style.textboxinput}
+            name="Outcome"
+            value={IncidentData.Outcome}
+            onChange={handleIncidentChange}
+            className={style.inicidentText}
             InputProps={{
               classes: {
                 focused: style.focusedInput,
@@ -541,11 +717,11 @@ className={style.dropdownform}
   <Select
     labelId="vehiNum-label"
     id="vehiNum"
-    value={vehiNumIncident_selectedOption}
-    onChange={vehiNumIncident_handleChangeOption}
-    onClick={vehiNumIncident_handleSelectClick}
+    value={IncidentData.VehiNumber}
+            onChange={handleIncidentChange}
+            name="VehiNumber"
+            onClick={()=>{vehiNumIncident_setIsPlaceholderVisible(false)}}>
 
-  >
     <MenuItem value="option1Value1">Option 1 Value 1</MenuItem>
     <MenuItem value="option1Value2">Option 1 Value 2</MenuItem>
     <MenuItem value="option1Value3">Option 1 Value 3</MenuItem>
@@ -558,7 +734,26 @@ className={style.dropdownform}
       </Grid>
       </Grid>
 
+      
+
 <br></br>
+<Grid container spacing={2}>
+  <Grid item md={3} xs={3} sm={12}>
+  </Grid>
+
+  <Grid item md={3} xs={3} sm={12}>
+  </Grid>
+
+  <Grid item md={3} xs={3} sm={12}>
+  </Grid>
+  <Grid item md={3} xs={3} sm={12}>
+<div className={style.btn}>
+            <Button className={style.clear} onClick={()=>{ClearIncidentDetails()}}>Clear</Button>
+            <Button className={style.add} onClick={()=>{AddIncidentDetails()}}>Add</Button>
+          </div>
+
+          </Grid>
+</Grid>
  
     <br></br>
     <h4 className={style.dropdownName}>Recorded Incidents</h4>
@@ -566,11 +761,139 @@ className={style.dropdownform}
 <br></br>
   <hr></hr>
   <br></br>
+
+  <Grid container spacing={2}>
+
+<Grid item md={6} xs={6} sm={12}>
+      
+          <h4 className={style.dropdownName}>Plant</h4>
+          <FormControl 
+className={style.dropdownform}
+  sx={{
+    '& .MuiSelect-select': {
+      color: 'white',
+      '&:hover, &:focus': {
+        color: 'white',
+      },
+    },
+    '& .MuiSelect-icon': { color: 'white' },
+    '& .MuiOutlinedInput-root': {
+      color: 'white',
+      '& fieldset': { borderColor: 'white' },
+      '&:hover fieldset, &:focus fieldset': { borderColor: 'white' },
+    },
+    '& .MuiMenuItem-root': {
+      color: 'white',
+      '&:hover, &:focus': {
+        backgroundColor: 'white',
+      },
+    },
+  }}
+>
+  <InputLabel
+    id="plant-label"
+    className={style.dropdownInput}
+    shrink={!SBUPreWorks_isPlaceholderVisible}
+   
+  >
+    {SBUPreWorks_isPlaceholderVisible ? 'Select Plant' : ''}
+  </InputLabel>
+  <Select
+    labelId="palnt-label"
+    id="plant"
+    value={PreWorksData.SBU}
+    onChange={handlePreWorkChange}
+    name="SBU"
+    onClick={()=>{SBUPreWorks_setIsPlaceholderVisible(false)}}>
+
+    <MenuItem value="option1Value1">Option 1 Value 1</MenuItem>
+    <MenuItem value="option1Value2">Option 1 Value 2</MenuItem>
+    <MenuItem value="option1Value3">Option 1 Value 3</MenuItem>
+  </Select>
+</FormControl>
+  
+</Grid>
+
+
+</Grid>
+<Grid container spacing={2}>
+
+<Grid item md={6} xs={6} sm={12}>
+     
+          <h4 className={style.dropdownName}>From</h4>
+          <TextField
+        type="date"
+        id="FromDate"
+        name="FromDate"
+            value={PreWorksData.FromDate}
+            onChange={handlePreWorkChange}
+        
+        className={style.inicidentText}
+        InputProps={{
+          classes: {
+            focused: style.focusedInput,
+            notchedOutline: style.whiteOutline
+          },
+          style: {
+            color: 'white', 
+          }
+        }}
+        // onChange={e => setDate(e.target.value)}
+      />
+
+<style>{`
+        input[type="date"]::-webkit-calendar-picker-indicator {
+          filter: invert(1);
+         
+          width: 24px;
+          height: 24px;
+        }
+      `}</style>
+</Grid>
+<Grid item md={6} xs={6} sm={12}>
+
+<h4 className={style.dropdownName}>To</h4>
+          <TextField
+        type="date"
+        id="ToDate"
+        value={PreWorksData.ToDate}
+            onChange={handlePreWorkChange}
+            name="ToDate"
+        className={style.inicidentText}
+        
+      
+        InputProps={{
+          classes: {
+            focused: style.focusedInput,
+            notchedOutline: style.whiteOutline
+          },
+          style: {
+            color: 'white', 
+          }
+        }}
+        // onChange={e => setDate(e.target.value)}
+      />
+
+<style>{`
+        input[type="date"]::-webkit-calendar-picker-indicator {
+          filter: invert(1);
+         
+          width: 24px;
+          height: 24px;
+        }
+      `}</style>
+
+</Grid>
+
+
+
+
+</Grid>
   <h4 className={style.dropdownName}>Previous Work History</h4>
   <br></br>
   <TablePrevious/>
   <br></br>
-
+{/* 
   <Grid container spacing={2}>
   <Grid item md={3} xs={3} sm={12}>
   </Grid>
@@ -581,15 +904,33 @@ className={style.dropdownform}
   <Grid item md={3} xs={3} sm={12}>
   </Grid>
   <Grid item md={3} xs={3} sm={12}>
-  <div className={style.btn}>
-            <Button className={style.del}>Delete</Button>
-            <Button className={style.use}>Use</Button>
+<div className={style.btn}>
+            <Button className={style.clear} onClick={()=>{ClearIncidentDetails()}}>Clear</Button>
+            <Button className={style.add} onClick={()=>{AddPreWorksDetails()}}>Add</Button>
           </div>
+
           </Grid>
-          </Grid>
+</Grid>    */}
+
 
    <br></br>
-       
+    <Grid container spacing={2}>
+  <Grid item md={3} xs={3} sm={12}>
+  </Grid>
+
+  <Grid item md={3} xs={3} sm={12}>
+  </Grid>
+
+  <Grid item md={3} xs={3} sm={12}>
+  </Grid>
+  <Grid item md={3} xs={3} sm={12}>
+<div className={style.btn}>
+            <Button className={style.clear} onClick={()=>{ClearPreWorksDetails()}}>Clear</Button>
+            <Button className={style.add} onClick={()=>{AddPreWorksDetails()}}>Add</Button>
+          </div>
+
+          </Grid>
+</Grid>   
 
 </section>
        

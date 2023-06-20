@@ -160,8 +160,14 @@
     width: 2px;
     height: 100px;
     background-color: white;
-   
   }
+  
+  @media (max-width: 900px) {
+    .verticalline {
+      display: none;
+    }
+  }
+  
 
   .name{
     margin-bottom: 4px;

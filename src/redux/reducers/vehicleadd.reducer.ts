@@ -22,9 +22,9 @@ export const ReducerVehicle = createSlice({
      
     },
       setPlantList: (state, action) => {
-        // state.plantList = action.payload;
-
-        state.companyId = action.payload.companyId;
+      state.plantList = action.payload;
+      debugger
+      
       },
 
       setVehicleList: (state, action) => {
@@ -58,8 +58,11 @@ export const ReducerVehicle = createSlice({
 
       builder.addCase(getPlants.fulfilled, (state, action:any) => {
        
-        state.plantList = action.payload
-      
+        // state.plantList = action.payload
+
+        state.plantList = action.payload;
+        debugger
+
 
       })
 

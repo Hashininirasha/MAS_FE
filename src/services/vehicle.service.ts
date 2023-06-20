@@ -16,7 +16,10 @@ export const getPlants = createAsyncThunk('get/Plants', async (companyId: any ) 
     
     const response = await axios.get(`https://mas-tms-dev-api-eastus.azurewebsites.net/api/Transport/GetAllPlans?companyId=${companyId}`)
     const plantlist:any[]=response.data;
-    return  response.data;   
+   
+    return  response.data;  
+
+     
   })
  
 
