@@ -47,7 +47,7 @@ export const ReducerVehicle = createSlice({
 
     },
     addIncidentMethodList:(state,action)=>{
-      state.incidentList.push(action.payload);
+      state.incidentList = action.payload;
     }
     
   },
@@ -61,7 +61,7 @@ export const ReducerVehicle = createSlice({
         // state.plantList = action.payload
 
         state.plantList = action.payload;
-        debugger
+        // debugger
 
 
       })

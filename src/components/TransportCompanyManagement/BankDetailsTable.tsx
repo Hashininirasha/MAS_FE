@@ -10,6 +10,7 @@ import { removePaymentMethodFromList } from '../../redux/reducers/transportcompa
 export default function DataTable() {
   const dispatch = useDispatch();
   const paymentMethods = useSelector((state:any) => state.transportCompany.paymentList);
+  debugger
   const RemovePayment=(event:any)=> {
     dispatch(removePaymentMethodFromList(event));
   }
@@ -22,7 +23,9 @@ export default function DataTable() {
       width: 220,
       renderHeader: () => <span className={styles.columnHeader}>Payment Method</span>,
       renderCell: (params: GridCellParams) => (
-        <span className={styles.cell} style={{paddingLeft: "10px"}}>{params.value as React.ReactNode}</span>
+        <span className={styles.cell} style={{paddingLeft: "10px"}}>{params.value as React.ReactNode}
+        
+        </span>
       ),
     },
     {
@@ -85,6 +88,7 @@ export default function DataTable() {
         getRowId={(row) => row.AccountNumber}
         rows={paymentMethods}
         columns={columns}
+        
         initialState={{
           pagination: {
             paginationModel: { page: 0, pageSize: 5 },

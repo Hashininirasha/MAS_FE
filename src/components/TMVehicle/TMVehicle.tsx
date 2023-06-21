@@ -33,10 +33,6 @@ const TMVehicle = () => {
 
 
 
-
-
-
-
  const handleChange = (event:any) => {
   const { name, value } = event.target;
   setvehicleaddData((prevState) => ({
@@ -49,7 +45,6 @@ const TMVehicle = () => {
 store.dispatch(getPlants(CompanyId));
 
 
-debugger
 
 };
 
@@ -58,7 +53,6 @@ debugger
   useEffect(() => {
   
     store.dispatch(getPlants( CompanyId ));
-    debugger
 
     store.dispatch(getVehicleType());
 
@@ -69,7 +63,7 @@ debugger
 
   useEffect(() => {
   
-debugger  
+
 
   }, [plantList]);
 
@@ -135,12 +129,6 @@ debugger
 
   });
 
-
-  
-
-  
-
-
   const handleIncidentDetailChange = (event:any) => {
     const { name, value } = event.target;
     setIncidentData((prevState) => ({
@@ -148,7 +136,6 @@ debugger
       [name]: value,
     }));
   };
-
 
   const AddIncidentDetails=()=>{
     

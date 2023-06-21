@@ -536,9 +536,9 @@ export  const TransportCompanyInsertGrid = () => {
     onChange={handlePaymentDetailChange}
     onClick={()=>{setIsPlaceholderVisible2(false)}}
   >
-   <MenuItem value="1">Cash</MenuItem>
-    <MenuItem value="2">Check</MenuItem>
-    <MenuItem value="3">Online</MenuItem>
+   <MenuItem value="1" id="Cash">Cash</MenuItem>
+    <MenuItem value="2" id="Check">Check</MenuItem>
+    <MenuItem value="3" id="Online">Online</MenuItem>
   </Select>
 </FormControl>
 {/* <p>Selected option: {getPaymentMethodName(selectedOption)}</p> */}
