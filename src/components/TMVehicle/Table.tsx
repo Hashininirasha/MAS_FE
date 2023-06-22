@@ -41,44 +41,90 @@ export default function DataTable() {
   const listArray: RowData[] = [];
 
 
-  // const [rows, setRows] = React.useState<RowData[]>(listArray);
+  const [orderBy, setOrderBy] = React.useState('');
+  const [order, setOrder] = React.useState<'asc' | 'desc' | undefined>(undefined);
+  // const [rows, setRows] = React.useState(incidentList);
 
+  const handleSortRequest = (property: string) => {
+    const isAsc = orderBy === property && order === 'asc';
+    setOrderBy(property);
+    setOrder(isAsc ? 'desc' : 'asc');
+  };
 
-  // React.useEffect(() => {
-  //   if (incidentList) {
-  
-  //     const formattedData = incidentList.map((item: any) => {
-  //       const formattedDate = new Date(item.date);
-  //       return createData(item.id, item.incident, formattedDate, item.outcome);
-  //     });
+  const sortedRows = React.useMemo(() => {
+    const comparator = (a: any, b: any) => {
+      if (order === 'asc') {
+        return a[orderBy] > b[orderBy] ? 1 : -1;
+      } else {
+        return a[orderBy] < b[orderBy] ? 1 : -1;
+      }
+    };
 
-  //     // const listArray: RowData[] = [...formattedData];
-  //     // setRows(listArray);
-  //   }
-  // }, [incidentList]);
+    if (orderBy) {
+      return [...incidentList].sort(comparator);
+    }
+    return incidentList;
+  }, [orderBy, order, incidentList]);
 
-  
+  const [idCounter, setIdCounter] = React.useState(1);
+
+  const handleIncrementId = () => {
+    setIdCounter(prevCounter => prevCounter + 1);
+  };
 
   return (
-    <TableContainer component={Paper}>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>ID</TableCell>
-            <TableCell>Incident</TableCell>
-            <TableCell>Date</TableCell>
-            <TableCell>Outcome</TableCell>
+    <TableContainer component={Paper} className={styles.table}>
+      <Table sx={{ minWidth: 250 }} aria-label="simple table" className={styles.table}>
+        <TableHead >
+          <TableRow className={styles.tableHeader}>
+
+           
+            <TableCell>
+              <TableSortLabel 
+                active={orderBy === 'incident'}
+                direction={orderBy === 'incident' ? order : undefined}
+                onClick={() => handleSortRequest('incident')}
+                IconComponent={() => <SortByAlphaIcon className={styles.alphaaicon} />}
+                className={styles.tableHeader}
+                
+              >
+               Incident
+              </TableSortLabel>
+              </TableCell>
+              <TableCell>
+              <TableSortLabel
+                active={orderBy === 'date'}
+                direction={orderBy === 'date' ? order : undefined}
+                onClick={() => handleSortRequest('date')}
+                IconComponent={() => <SortByAlphaIcon className={styles.alphaaicon} />}
+                className={styles.tableHeader}
+              >
+                Date
+              </TableSortLabel>
+            </TableCell>
+            <TableCell>
+              <TableSortLabel
+                active={orderBy === 'outcome'}
+                direction={orderBy === 'outcome' ? order : undefined}
+                onClick={() => handleSortRequest('outcome')}
+                IconComponent={() => <SortByAlphaIcon className={styles.alphaaicon} />}
+                className={styles.tableHeader}
+              >
+                Outcome
+              </TableSortLabel>
+            </TableCell>    
           </TableRow>
         </TableHead>
         <TableBody>
-          {incidentList.map((item:any) => (
-            <TableRow key={item.Id}>
-              <TableCell>{item.Id}</TableCell>
-              <TableCell>{item.Incident}</TableCell>
-              <TableCell>{item.Date}</TableCell>
-              <TableCell>{item.Outcome}</TableCell>
-            </TableRow>
-          ))}
+        
+              { sortedRows.map && incidentList.map((item:any) => (
+                <TableRow key={item.Id}>
+                  <TableCell className={styles.table}>{item.Incident}</TableCell>
+                  <TableCell className={styles.table}>{item.Date}</TableCell>
+                  <TableCell className={styles.table}>{item.Outcome}</TableCell>
+                </TableRow>
+              ))}
+         
         </TableBody>
       </Table>
     </TableContainer>

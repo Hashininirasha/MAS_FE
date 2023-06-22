@@ -27,7 +27,7 @@ export const TransportCompany = createSlice({
 
     },
     addPaymentMethodList:(state,action)=>{
-      state.paymentList.push(action.payload);
+      state.paymentList = action.payload;
     }
     
   },

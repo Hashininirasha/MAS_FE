@@ -1,4 +1,4 @@
-import { Box, Button, FormControl, Grid,  InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material'
+import { Autocomplete, Box, Button, FormControl, Grid,  InputLabel, MenuItem, Select, TextField, Typography } from '@mui/material'
 import React, { useEffect, useState } from 'react'
 import style from './TransportCompanyManagementGrid.module.scss';
 import store from '../../redux/store';
@@ -22,17 +22,13 @@ export  const TransportCompanyInsertGrid = () => {
   const [bank, setBank] = useState('')
   const dispatch = useDispatch();
 
+  const Branches = [
+    { label: 'BamBalapitiya', value: 1 },
+    { label: 'Awissawella', value: 2 },
+    { label: 'Badulla', value: 3 },
+    // Add more options as needed
+  ];
 
-  // const paymentMethods = [
-  //   { value: '1', name: 'Cash' },
-  //   { value: '2', name: 'Check' },
-  //   { value: '3', name: 'Online' },
-  // ];
-
-  // const getPaymentMethodName = (value:any) => {
-  //   const selectedMethod = paymentMethods.find((method) => method.value === value);
-  //   return selectedMethod ? selectedMethod.name : '';
-  // };
 
   const [selectedOption, setSelectedOption] = useState('');
 
@@ -108,6 +104,8 @@ export  const TransportCompanyInsertGrid = () => {
       ...prevState,
       [name]: value,
     }));
+
+    
     // setSelectedOption(event.target.value);
   };
 
@@ -581,17 +579,18 @@ export  const TransportCompanyInsertGrid = () => {
     {isPlaceholderVisible3 ? 'Select Bank' : ''}
   </InputLabel>
   <Select
-    labelId="option1-label"
-    id="option1"
-    value={payementData.Bank}
-    onChange={handlePaymentDetailChange}
-    name="Bank"
-    onClick={()=>{setIsPlaceholderVisible3(false)}}
-  >
-    <MenuItem value="1" id="Bank Of Ceylon">Bank Of Ceylon</MenuItem>
-    <MenuItem value="2" id="Peoples Bank">Peoples Bank</MenuItem>
-    <MenuItem value="3" id="Commercial Bank">Commercial Bank</MenuItem>
-  </Select>
+  labelId="option1-label"
+  id="option1"
+  value={payementData.Bank}
+  onChange={handlePaymentDetailChange}
+  name="Bank"
+  onClick={() => { setIsPlaceholderVisible3(false) }}
+>
+  <MenuItem value={1} id="Bank Of Ceylon">Bank Of Ceylon</MenuItem>
+  <MenuItem value={2} id="Peoples Bank">Peoples Bank</MenuItem>
+  <MenuItem value={3} id="Commercial Bank">Commercial Bank</MenuItem>
+</Select>
+
 </FormControl>
   
 
@@ -599,6 +598,72 @@ export  const TransportCompanyInsertGrid = () => {
     
     </Grid>  
    
+
+    <Grid container spacing={2}>
+
+<Grid item md={6} xs={6} sm={12}>
+    
+ 
+<h4 className={style.textboxtitle}>Branch</h4>
+         
+<Autocomplete
+      id="Branches"
+      options={Branches} // replace accountOptions with your array of options
+      getOptionLabel={(option) => option.label} // replace 'label' with the property name in your accountOptions array that represents the label to display
+      // value={payementData.Bank}
+      onChange={handlePaymentDetailChange}
+      renderInput={(params) => (
+        <TextField
+          {...params}
+          variant="outlined"
+          className={style.textboxinput}
+          InputProps={{
+            ...params.InputProps,
+            classes: {
+              focused: style.focusedInput,
+              notchedOutline: style.whiteOutline,
+              input: style.whitePlaceholder,
+            },
+            style: {
+              color: 'white',
+            },
+          }}
+          placeholder="Select Branch"
+        />
+      )}
+    />
+
+
+</Grid>
+
+<Grid item md={6} xs={6} sm={12}>
+
+<h4 className={style.textboxtitle}>Branch Code</h4>
+          
+    
+          <TextField
+            id="accnum"
+            variant="outlined"
+            className={style.textboxinput}
+            value={payementData.AccountNumber}
+            name="AccountNumber"
+            onChange={handlePaymentDetailChange}
+            InputProps={{
+              classes: {
+                focused: style.focusedInput,
+                notchedOutline: style.whiteOutline,
+                input: style.whitePlaceholder,
+              },
+              style: {
+                color: 'white', 
+              },
+              placeholder: 'Enter Account Number',
+            }}
+          />
+        
+     </Grid>
+     </Grid>
+
     <Grid container spacing={2}>
 
 <Grid item md={6} xs={6} sm={12}>

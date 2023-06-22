@@ -100,6 +100,7 @@ const [SBUPreWorks_isPlaceholderVisible, SBUPreWorks_setIsPlaceholderVisible] = 
     TrasportCompany: TrasportCompany,
     NIC: "",
     License: "",
+    TeleNumber: 0,
     IAssignVehicleDetails: assignVehicleList,
     IIncidentDetails:incidentsList,
     IPreviousWorksDetails:previousWorksList
@@ -110,6 +111,7 @@ const [SBUPreWorks_isPlaceholderVisible, SBUPreWorks_setIsPlaceholderVisible] = 
     TrasportCompany: driveradd.TrasportCompany,
     NIC:driveradd.NIC,
     License:driveradd.License,
+    TeleNumber:driveradd.TeleNumber,
     IAssignVehicleDetails: assignVehicleList,
     IIncidentDetails:incidentsList,
     IPreviousWorksDetails:previousWorksList
@@ -387,6 +389,40 @@ const [SBUPreWorks_isPlaceholderVisible, SBUPreWorks_setIsPlaceholderVisible] = 
           />
 </Grid>
 </Grid>
+
+
+<Grid container spacing={2}>
+
+<Grid item md={6} xs={6} sm={12}>
+
+       
+     
+          <h4 className={style.textboxtitle}>Driver Telephone Number</h4>
+          <TextField
+            id="driverLicense-basic"
+            variant="outlined"
+            className={style.textboxinput}
+            name="TeleNumber"
+            value={driveraddData.TeleNumber}
+            onChange={handleChange}
+            InputProps={{
+              classes: {
+                focused: style.focusedInput,
+                notchedOutline: style.whiteOutline,
+                input: style.whitePlaceholder,
+              },
+              style: {
+                color: 'white', 
+              },
+              placeholder: 'Enter Driver Telephone Number',
+            }}
+          />
+</Grid>
+
+</Grid>
+
+
+
 
 <br></br>
    <hr></hr>

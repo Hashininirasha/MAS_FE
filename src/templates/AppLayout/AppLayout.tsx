@@ -121,7 +121,7 @@ const AppLayout: React.FC<{
                  <div
                    className={`navBarContent navLink layout-row`}
                  >
-                   <span>TM Vehicle Alocation</span>
+                   <span>TM Vehicle Add</span>
                  </div>
                </NavLink>
            </aside>
@@ -135,7 +135,7 @@ const AppLayout: React.FC<{
                <div
                  className={`navBarContent navLink layout-row`}
                >
-                 <span>TM Driver Alocation</span>
+                 <span>TM Driver Add</span>
                </div>
              </NavLink>
          </aside>

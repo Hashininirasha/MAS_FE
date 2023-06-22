@@ -58,14 +58,14 @@ store.dispatch(getPlants(CompanyId));
 
     store.dispatch(getCompanyName());
 
-  }, [dispatch, CompanyId]);
+  }, [ CompanyId]);
 
 
-  useEffect(() => {
+  // useEffect(() => {
   
 
 
-  }, [plantList]);
+  // }, [plantList]);
 
 
   const [com_name_isPlaceholderVisible, setcom_name_isPlaceholderVisible] = React.useState(true);
@@ -113,8 +113,8 @@ store.dispatch(getPlants(CompanyId));
     VehicleNumber: vehicleadd.VehicleNumber,
     VehicleType: vehicleadd.VehicleType,
     Plant: vehicleadd.Plant,
-    Seats: vehicleadd.Seats,
-    CBM: vehicleadd.CBM,
+    Seats: vehicleadd.Seats !== 0 ? vehicleadd.Seats : '',
+    CBM: vehicleadd.CBM !== 0 ? vehicleadd.Seats : '',
     IncidetnDetails: incidentsList
  
   });
@@ -139,7 +139,7 @@ store.dispatch(getPlants(CompanyId));
 
   const AddIncidentDetails=()=>{
     
-    incidentData.Id=new Date().getUTCMilliseconds().toString();
+    // incidentData.Id=new Date().getUTCMilliseconds().toString();
     incidentsList.push(incidentData);
     setIncidentData(incidentDetailsInitial);
     setIncidentData((prevState) => ({
@@ -440,7 +440,7 @@ store.dispatch(getPlants(CompanyId));
 
 </Grid>
 </Grid>
-
+{/* <h4 className={style.recIncident}>Recorded Incidents</h4> */}
      <div>
       <div className={style.gridHeader}>
        <h3>Incident</h3>
@@ -552,7 +552,7 @@ store.dispatch(getPlants(CompanyId));
           </Grid>
 </Grid>
           
-  <h4 className={style.recIncident}>Recorded Incidents</h4>
+  
 
   <DataTable/>
 
@@ -586,6 +586,3 @@ store.dispatch(getPlants(CompanyId));
 
 export default TMVehicle;
 
-function fetchData(): any {
-  throw new Error('Function not implemented.');
-}

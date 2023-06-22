@@ -12,9 +12,9 @@ const VehicleRequest = () => {
 
   const allRequests: RequestListDto[] = useSelector((state: ApplicationStateDto) => state.request.requestList.data)
 
-  useEffect(() => {
-    getRequestList()
-  })
+  // useEffect(() => {
+  //   getRequestList()
+  // })
 
   useEffect(() => {
     setRequestList(allRequests)
@@ -22,10 +22,10 @@ const VehicleRequest = () => {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [allRequests])
 
-  const getRequestList = async () => {
+  // const getRequestList = async () => {
  
-    dispatch(requestActions.getRequestsList())
-  }
+  //   dispatch(requestActions.getRequestsList())
+  // }
 
   return (
     <React.Fragment>

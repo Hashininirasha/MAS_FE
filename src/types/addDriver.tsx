@@ -1,4 +1,5 @@
 interface IDriverAdd {
+    TeleNumber: number,
     License: any;
     NIC: any;
     DriverName: string,
