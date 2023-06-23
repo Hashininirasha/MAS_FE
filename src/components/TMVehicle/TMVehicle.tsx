@@ -11,6 +11,7 @@ import { error } from 'console';
 import { useSelector } from 'react-redux';
 import store from '../../redux/store';
 import { getCompanyName, getPlants, getVehicleType } from '../../services/vehicle.service';
+import {insertVehicle} from '../../services/vehicle.service';
 
 
 
@@ -20,14 +21,14 @@ const TMVehicle = () => {
 
   
   const dispatch = useDispatch();
-  // const plantList = useSelector((state: any) => state.ReducerVehicle.plantList);
-  // const plantListshow = useSelector((state: any) => state.ReducerVehicle.plantList);
+  // const organizationUnitIdList = useSelector((state: any) => state.ReducerVehicle.organizationUnitIdList);
+  // const organizationUnitIdListshow = useSelector((state: any) => state.ReducerVehicle.organizationUnitIdList);
  const VehicleTypelist = useSelector((state: any) => state.ReducerVehicle.VehicleTypelist);
 //  const CompanyNamelist = [] as any[];
 
  const CompanyNamelist=useSelector((state: any) => state.ReducerVehicle.CompanyNamelist);
 
- const plantList =useSelector((state: any) => state.ReducerVehicle.plantList);
+ const organizationUnitIdList =useSelector((state: any) => state.ReducerVehicle.organizationUnitIdList);
 
  const [CompanyId, setCompanyId] = useState(0)
 
@@ -65,12 +66,12 @@ store.dispatch(getPlants(CompanyId));
   
 
 
-  // }, [plantList]);
+  // }, [organizationUnitIdList]);
 
 
   const [com_name_isPlaceholderVisible, setcom_name_isPlaceholderVisible] = React.useState(true);
   const [vehitype_isPlaceholderVisible, setvehitype_isPlaceholderVisible] = React.useState(true);
-  const [plant_name_isPlaceholderVisible, setplant_name_isPlaceholderVisible] = React.useState(true);
+  const [organizationUnitId_name_isPlaceholderVisible, setorganizationUnitId_name_isPlaceholderVisible] = React.useState(true);
 
  
   const navigate = useNavigate()
@@ -79,7 +80,7 @@ store.dispatch(getPlants(CompanyId));
   const incidentDetailsInitial: IIncident={
     Incident:"",
     Date: new Date,
-    Outcome:"",
+    outCome:"",
     Id:"",
    
   }
@@ -87,7 +88,7 @@ store.dispatch(getPlants(CompanyId));
   const incident: IIncident={
     Incident:"",
     Date: new Date,
-    Outcome:"",   
+    outCome:"",   
     Id:"",
   }
 
@@ -95,26 +96,26 @@ store.dispatch(getPlants(CompanyId));
   
   const [CompanyName, setCompanyName] = useState('')
   const [VehicleType, setVehicleType] = useState('')
-  const [Plant, setplant] = useState('')
+  const [organizationUnitId, setorganizationUnitId] = useState('')
 
   const vehicleadd: IVehicleadd = {
     CompnayName: CompanyName,
-    VehicleNumber: "",
+    vehicleNo: "",
     VehicleType: VehicleType,
-    Plant: Plant,
-    Seats: 0,
-    CBM: 0,
+    organizationUnitId: organizationUnitId,
+    seatCount: 0,
+    cbm: 0,
     IncidetnDetails: incidentsList
    
   };
 
   const [vehicleaddData, setvehicleaddData] = useState({
     CompnayName: vehicleadd.CompnayName,
-    VehicleNumber: vehicleadd.VehicleNumber,
+    vehicleNo: vehicleadd.vehicleNo,
     VehicleType: vehicleadd.VehicleType,
-    Plant: vehicleadd.Plant,
-    Seats: vehicleadd.Seats !== 0 ? vehicleadd.Seats : '',
-    CBM: vehicleadd.CBM !== 0 ? vehicleadd.Seats : '',
+    organizationUnitId: vehicleadd.organizationUnitId,
+    seatCount: vehicleadd.seatCount !== 0 ? vehicleadd.seatCount : '',
+    cbm: vehicleadd.cbm !== 0 ? vehicleadd.seatCount : '',
     IncidetnDetails: incidentsList
  
   });
@@ -124,7 +125,7 @@ store.dispatch(getPlants(CompanyId));
 
     Incident:incident.Incident,
     Date:incident.Date,
-    Outcome:incident.Outcome,
+    outCome:incident.outCome,
     Id:"",
 
   });
@@ -251,8 +252,8 @@ store.dispatch(getPlants(CompanyId));
             id="vehicle_number"
             variant="outlined"
             className={style.textboxinput}
-            name="VehicleNumber"
-            value={vehicleaddData.VehicleNumber}
+            name="vehicleNo"
+            value={vehicleaddData.vehicleNo}
             onChange={handleChange}
             InputProps={{
               classes: {
@@ -329,7 +330,7 @@ store.dispatch(getPlants(CompanyId));
 
 </Grid>
 <Grid item md={6} xs={6} sm={12}>
-          <h4 className={style.dropdownName}>Plant</h4>
+          <h4 className={style.dropdownName}>organizationUnitId</h4>
           <FormControl
            className={style.dropdownform}
            sx={{
@@ -356,24 +357,24 @@ store.dispatch(getPlants(CompanyId));
           <InputLabel
             id="sbu"
             className={style.dropdownInput}
-            shrink={!plant_name_isPlaceholderVisible}
+            shrink={!organizationUnitId_name_isPlaceholderVisible}
            
            
           >
-            {plant_name_isPlaceholderVisible ? 'Select Attached SBUs' : ''}
+            {organizationUnitId_name_isPlaceholderVisible ? 'Select Attached SBUs' : ''}
           </InputLabel>
           <Select
          labelId="option1-label"
          id="option1"
-         value={vehicleaddData.Plant}
+         value={vehicleaddData.organizationUnitId}
 
          onChange={handleChange}
-         name="Plant"
-         onClick={()=>{setplant_name_isPlaceholderVisible(false)}}>
+         name="organizationUnitId"
+         onClick={()=>{setorganizationUnitId_name_isPlaceholderVisible(false)}}>
   
-      {plantList && plantList.map((plantName: any) => (
-  <MenuItem key={plantName.id} value={CompanyId}>
-    {plantName.name}
+      {organizationUnitIdList && organizationUnitIdList.map((organizationUnitIdName: any) => (
+  <MenuItem key={organizationUnitIdName.id} value={CompanyId}>
+    {organizationUnitIdName.name}
   
   </MenuItem>
 ))}
@@ -393,11 +394,11 @@ store.dispatch(getPlants(CompanyId));
 
  
           <TextField
-            id="Seats"
+            id="seatCount"
             variant="outlined"
             className={style.textboxinput}
-            name="Seats"
-            value={vehicleaddData.Seats}
+            name="seatCount"
+            value={vehicleaddData.seatCount}
             onChange={handleChange}
             InputProps={{
               classes: {
@@ -408,22 +409,22 @@ store.dispatch(getPlants(CompanyId));
               style: {
                 color: 'white', 
               },
-              placeholder: 'Enter Available Seats',
+              placeholder: 'Enter Available seatCount',
             }}
           />
 
 </Grid>
 <Grid item md={6} xs={6} sm={12}>
 
-<h4 className={style.textboxtitle}>Vehicle Capacity (CBM)</h4>
+<h4 className={style.textboxtitle}>Vehicle Capacity (cbm)</h4>
 
  
 <TextField
-  id="CBM"
+  id="cbm"
   variant="outlined"
   className={style.textboxinput}
-  name="CBM"
-  value={vehicleaddData.CBM}
+  name="cbm"
+  value={vehicleaddData.cbm}
   onChange={handleChange}
   InputProps={{
     classes: {
@@ -434,7 +435,7 @@ store.dispatch(getPlants(CompanyId));
     style: {
       color: 'white', 
     },
-    placeholder: 'Enter CBM',
+    placeholder: 'Enter cbm',
   }}
 />
 
@@ -507,12 +508,12 @@ store.dispatch(getPlants(CompanyId));
 
 <Grid item md={6} xs={6} sm={12}>
     
-          <h4 className={style.textboxtitle}>Outcome</h4>
+          <h4 className={style.textboxtitle}>outCome</h4>
           <TextField
-            id="outcome"
+            id="outCome"
             variant="outlined"
-            value={incidentData.Outcome}
-          name="Outcome"
+            value={incidentData.outCome}
+          name="outCome"
           onChange={handleIncidentDetailChange}
             className={style.textboxinput}
             InputProps={{
@@ -524,7 +525,7 @@ store.dispatch(getPlants(CompanyId));
               style: {
                 color: 'white', 
               },
-              placeholder: 'Enter outcome',
+              placeholder: 'Enter outCome',
             }}
           />
     
@@ -552,7 +553,7 @@ store.dispatch(getPlants(CompanyId));
           </Grid>
 </Grid>
           
-  
+  <br></br>
 
   <DataTable/>
 
@@ -570,7 +571,7 @@ store.dispatch(getPlants(CompanyId));
   <Grid item md={3} xs={3} sm={12}>
     <div className={style.btn}>
             <Button className={style.delete}>Delete</Button>
-            <Button className={style.use}>Use</Button>
+            <Button className={style.use} onClick={() => store.dispatch(insertVehicle(vehicleaddData))}>Use</Button>
             
           </div>
 </Grid>

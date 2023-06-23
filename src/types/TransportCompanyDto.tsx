@@ -8,7 +8,8 @@ interface ITransportCompany {
     City: string
     District: string,
     Province:string,
-    PostalCode:string
+    PostalCode:string,
+    Email:string,
     BankDetails:IPayementDetails[]
    
 }
@@ -16,11 +17,18 @@ interface ITransportCompany {
 
 export interface IPayementDetails {
 
+
+    CurrancyType:string,
     PaymentMethod:string,
     Bank:string,
+    Bankcode:string,
+    Branch:string,
+    Branchcode:string,
     BeneficiaryName:string,
     AccountNumber:string,
     Id:string
+   
+
 }
 
 

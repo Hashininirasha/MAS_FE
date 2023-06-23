@@ -1,10 +1,10 @@
 interface IVehicleadd {
     CompnayName: string,
-    VehicleNumber: string,
+    vehicleNo: string,
     VehicleType: string,
-    Plant: string,
-    Seats: number, 
-    CBM:number,
+    organizationUnitId: string,
+    seatCount: number, 
+    cbm:number,
     IncidetnDetails: IIncident[]
 
 }
@@ -13,7 +13,7 @@ export interface IIncident {
 
     Incident:string,
     Date: Date,
-    Outcome:string,
+    outCome:string,
     Id:string,
 }
 

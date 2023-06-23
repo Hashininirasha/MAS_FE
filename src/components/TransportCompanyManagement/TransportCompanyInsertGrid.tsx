@@ -9,7 +9,7 @@ import DataTable from './BankDetailsTable';
 import { useDispatch } from 'react-redux';
 import { addPaymentMethodList } from '../../redux/reducers/transportcompany.reducer';
 
-const bankDetailsList:IPayementDetails[]=[]
+const BankDetailsList:IPayementDetails[]=[]
 
 export  const TransportCompanyInsertGrid = () => {
 
@@ -18,8 +18,8 @@ export  const TransportCompanyInsertGrid = () => {
   }, []);
 
   const [sbu, setSbu] = useState('')
-  const [paymentMethod, setPaymentMethod] = useState('')
-  const [bank, setBank] = useState('')
+
+  const [Bank, setBank] = useState('')
   const dispatch = useDispatch();
 
   const Branches = [
@@ -31,26 +31,43 @@ export  const TransportCompanyInsertGrid = () => {
 
 
   const [selectedOption, setSelectedOption] = useState('');
+  const [CurrancyType, setCurrancyType] = useState('');
+  const [PaymentMethod, setPaymentMethod] = useState('');
+  // const [Bankcode, setBankcode] = useState('');
+  const [Branch, setBranch] = useState('');
+  // const [Branchcode, setBranchcode] = useState('');
 
-
-  const [isPlaceholderVisible1, setIsPlaceholderVisible1] = React.useState(true);
-  const [isPlaceholderVisible2, setIsPlaceholderVisible2] = React.useState(true);
-  const [isPlaceholderVisible3, setIsPlaceholderVisible3] = React.useState(true);
+  const [SBUisPlaceholderVisible, setSBUIsPlaceholderVisible] = React.useState(true);
+  const [CurrancyTypeisPlaceholderVisible, setCurrancyTypeIsPlaceholderVisible] = React.useState(true);
+  const [PayMethodisPlaceholderVisible, setPayMethodIsPlaceholderVisible] = React.useState(true);
+  const [BankisPlaceholderVisible, setBankIsPlaceholderVisible] = React.useState(true);
+  const [BankcodeSample, setBankcodeSample] = useState('');
 
   const paymentDetailsInitial: IPayementDetails={
-    PaymentMethod:"",
+   
     Bank:"",
     BeneficiaryName:"",
     AccountNumber:"",
-    Id:""
+    Id:"",
+    CurrancyType:"",
+    PaymentMethod:"",
+    Bankcode:"",
+    Branch:"",
+    Branchcode:"",
+
   }
 
   const payments: IPayementDetails={
-    PaymentMethod:paymentMethod,
-    Bank:bank,
+   
+    Bank:Bank,
     BeneficiaryName:"",
     AccountNumber:"",
-    Id:""
+    Id:"",
+    CurrancyType:CurrancyType,
+    PaymentMethod:PaymentMethod,
+    Bankcode:"",
+    Branch:Branch,
+    Branchcode:"",
   }
 
   const transportCompany: ITransportCompany = {
@@ -64,7 +81,8 @@ export  const TransportCompanyInsertGrid = () => {
     District: "",
     Province:"",
     PostalCode:"",
-    BankDetails:bankDetailsList
+    Email:"",
+    BankDetails:BankDetailsList
   };
 
   const [transportCompanyData, settransportCompanyData] = useState({
@@ -75,18 +93,26 @@ export  const TransportCompanyInsertGrid = () => {
     AddressLine2:transportCompany.AddressLine2,
     AddressLine1:transportCompany.AddressLine1,
     District: transportCompany.District,
-    BankDetails: bankDetailsList,
+    BankDetails: BankDetailsList,
     PostalCode:transportCompany.PostalCode,
     Province:transportCompany.Province,
-    AttachedSBU:transportCompany.AttachedSBU
+    AttachedSBU:transportCompany.AttachedSBU,
+    Email:transportCompany.Email,
+    
   });
 
   const [payementData, setPayementData] = useState({
-    PaymentMethod:paymentMethod,
-    Bank:bank, 
+
+    Bank:Bank, 
     BeneficiaryName:payments.BeneficiaryName,
     AccountNumber:payments.AccountNumber,
-    Id: ""
+    Id: "",
+    CurrancyType:CurrancyType,
+    PaymentMethod:PaymentMethod,
+    Bankcode:payments.Bankcode,
+    Branch:Branch,
+    Branchcode:payments.Branchcode,
+
   });
 
   const handleChange = (event:any) => {
@@ -98,24 +124,58 @@ export  const TransportCompanyInsertGrid = () => {
     // setSelectedOption(event.target.value);
   };
 
-  const handlePaymentDetailChange = (event:any) => {
+  const handlePaymentDetailChange = (event: any) => {
     const { name, value } = event.target;
+  
     setPayementData((prevState) => ({
       ...prevState,
       [name]: value,
     }));
+  
+    if (name === 'Bank') {
+      // Set the Bank code based on the selected Bank
+      let Bankcode = '';
+      switch (value) {
+        case '1':
+          Bankcode = 'BOC123';
+          break;
+        case '2':
+          Bankcode = 'PB456';
+          break;
+        case '3':
+          Bankcode = 'CB789';
+          break;
+        default:
+          Bankcode = '';
+      }
+      setPayementData((prevState) => ({
+        ...prevState,
+        Bankcode: Bankcode,
+      }));
+  
+      if (Bankcode) {
+        setBankcodeSample(`Sample: ${Bankcode}`);
+      } else {
+        setBankcodeSample('');
+      }
+    }
 
-    
-    // setSelectedOption(event.target.value);
+
   };
+  
 
+
+
+
+  // Inside the handlePaymentDetailChange function, after setting the Bank code
+ 
   const AddPaymentDetails=()=>{
     payementData.Id=new Date().getUTCMilliseconds().toString();
-    bankDetailsList.push(payementData);
+    BankDetailsList.push(payementData);
     setPayementData(paymentDetailsInitial);
     settransportCompanyData((prevState) => ({
       ...prevState,
-      BankDetails: bankDetailsList,
+      BankDetails: BankDetailsList,
     }));
     dispatch(addPaymentMethodList(payementData));
     
@@ -239,11 +299,11 @@ export  const TransportCompanyInsertGrid = () => {
   <InputLabel
     id="sbu"
     className={style.dropdownInput}
-    shrink={!isPlaceholderVisible1}
+    shrink={!SBUisPlaceholderVisible}
    
    
   >
-    {isPlaceholderVisible1 ? 'Select Attached SBUs' : ''}
+    {SBUisPlaceholderVisible ? 'Select Attached SBUs' : ''}
   </InputLabel>
   <Select
     labelId="option1-label"
@@ -251,7 +311,7 @@ export  const TransportCompanyInsertGrid = () => {
     value={transportCompanyData.AttachedSBU}
     onChange={handleChange}
     name="AttachedSBU"
-    onClick={()=>{setIsPlaceholderVisible1(false)}}>
+    onClick={()=>{setSBUIsPlaceholderVisible(false)}}>
     <MenuItem value="1">SBU1</MenuItem>
     <MenuItem value="2">SBU2</MenuItem>
     <MenuItem value="3">SBU3</MenuItem>
@@ -288,6 +348,37 @@ export  const TransportCompanyInsertGrid = () => {
       </Grid>
       </Grid>
 
+
+      <Grid container spacing={2}>
+<Grid item md={6} xs={6} sm={12}>
+
+<h4 className={style.dropdownName}>Email</h4>
+<TextField
+            id="reg_num"
+            variant="outlined"
+            className={style.textboxinput}
+            value={transportCompanyData.Email}
+            name="Email"
+            onChange={handleChange}
+            InputProps={{
+              classes: {
+                focused: style.focusedInput,
+                notchedOutline: style.whiteOutline,
+                input: style.whitePlaceholder,
+              },
+              style: {
+                color: 'white', 
+              },
+              placeholder: 'Enter E-mail Address',
+            }}
+          />
+</Grid>
+
+<Grid item md={6} xs={6} sm={12}>
+
+
+      </Grid>
+      </Grid>
 
 <br></br>
 <hr></hr>
@@ -489,13 +580,82 @@ export  const TransportCompanyInsertGrid = () => {
   <div className={style.gridHeader}>
        <h3 className={style.subtitle}>Payment Details</h3> 
       </div>
+
+
+
       <Grid container spacing={2}>
 
 <Grid item md={6} xs={6} sm={12}>
   
-<h4 className={style.dropdownName}>Payment method</h4>
+<Grid container spacing={2}>
 
-<FormControl className={style.dropdownform}
+
+      {/* Small Section */}
+      <Grid item md={6} sm={6} xs={12}>
+      <h4 className={style.dropdownName}>Currancy Type</h4>
+      <FormControl
+         
+         className={style.dropdownformCurrancy}
+  sx={{
+    '& .MuiSelect-select': {
+      color: 'white',
+      '&:hover, &:focus': {
+        color: 'white',
+      },
+    },
+    '& .MuiSelect-icon': { color: 'white' },
+    '& .MuiOutlinedInput-root': {
+      color: 'white',
+      '& fieldset': { borderColor: 'white' },
+      '&:hover fieldset, &:focus fieldset': { borderColor: 'white' },
+    },
+    '& .MuiMenuItem-root': {
+      color: 'white',
+      '&:hover, &:focus': {
+        backgroundColor: 'white',
+      },
+    },
+  }}
+>
+  <InputLabel
+    id="Bank"
+    className={style.dropdownform}
+    shrink={!CurrancyTypeisPlaceholderVisible}
+   
+  >
+    {CurrancyTypeisPlaceholderVisible ? 'Select CurrancyType' : ''}
+  </InputLabel>
+  <Select
+  labelId="option1-label"
+  id="Bank"
+  value={payementData.CurrancyType}
+  onChange={handlePaymentDetailChange}
+  name="CurrancyType"
+  onClick={() => { setCurrancyTypeIsPlaceholderVisible(false) }}
+>
+  <MenuItem value="1" id="USD">USD</MenuItem>
+  <MenuItem value="2" id="LKR">LKR</MenuItem>
+ 
+</Select>
+
+</FormControl>
+      </Grid>
+
+     
+    </Grid>
+{/* <p>Selected option: {getPaymentMethodName(selectedOption)}</p> */}
+     
+</Grid>
+
+<Grid item md={6} xs={6} sm={12}>
+
+<Grid container spacing={2}>
+      <Grid item md={6} sm={6} xs={12}>
+ 
+         
+      <h4 className={style.dropdownName}>Payment method</h4>
+
+<FormControl className={style.dropdownformCurrancyselector}
      
   sx={{
     '& .MuiSelect-select': {
@@ -521,10 +681,10 @@ export  const TransportCompanyInsertGrid = () => {
   <InputLabel
     id="paymentmethod"
   
-    shrink={!isPlaceholderVisible2}
+    shrink={!PayMethodisPlaceholderVisible}
     className={style.dropdownInput}
   >
-    {isPlaceholderVisible2 ? 'Select Payment method' : ''}
+    {PayMethodisPlaceholderVisible ? 'Select Payment method' : ''}
   </InputLabel>
   <Select
     labelId="option1-label"
@@ -532,21 +692,31 @@ export  const TransportCompanyInsertGrid = () => {
     value={payementData.PaymentMethod}
     name="PaymentMethod"
     onChange={handlePaymentDetailChange}
-    onClick={()=>{setIsPlaceholderVisible2(false)}}
+    onClick={()=>{setPayMethodIsPlaceholderVisible(false)}}
   >
-   <MenuItem value="1" id="Cash">Cash</MenuItem>
-    <MenuItem value="2" id="Check">Check</MenuItem>
-    <MenuItem value="3" id="Online">Online</MenuItem>
+   <MenuItem value="1" id="Cash_Check">Cash Check</MenuItem>
+    <MenuItem value="2" id="Bank_Transfer">Bank Transfer</MenuItem>
+
   </Select>
 </FormControl>
-{/* <p>Selected option: {getPaymentMethodName(selectedOption)}</p> */}
-     
-</Grid>
+      </Grid>
+  
+    </Grid>
+</Grid>  
+    </Grid>  
+   
 
+    
+  
+
+      <Grid container spacing={2}>
+      {payementData.PaymentMethod !== '1' && (
 <Grid item md={6} xs={6} sm={12}>
-
-<h4 className={style.dropdownName}>Bank</h4>
-          <FormControl style={{ width: '97%', paddingLeft: '10px'}}
+  
+<Grid container spacing={2}>
+      <Grid item md={6} sm={6} xs={12}>
+      <h4 className={style.dropdownName}>Bank</h4>
+          <FormControl
          
          className={style.dropdownform}
   sx={{
@@ -571,98 +741,134 @@ export  const TransportCompanyInsertGrid = () => {
   }}
 >
   <InputLabel
-    id="bank"
+    id="Bank"
     className={style.dropdownInput}
-    shrink={!isPlaceholderVisible2}
+    shrink={!BankisPlaceholderVisible}
    
   >
-    {isPlaceholderVisible3 ? 'Select Bank' : ''}
+    {BankisPlaceholderVisible ? 'Select Bank' : ''}
   </InputLabel>
   <Select
   labelId="option1-label"
-  id="option1"
+  id="Bank"
   value={payementData.Bank}
   onChange={handlePaymentDetailChange}
   name="Bank"
-  onClick={() => { setIsPlaceholderVisible3(false) }}
+  onClick={() => { setBankIsPlaceholderVisible(false) }}
 >
-  <MenuItem value={1} id="Bank Of Ceylon">Bank Of Ceylon</MenuItem>
-  <MenuItem value={2} id="Peoples Bank">Peoples Bank</MenuItem>
-  <MenuItem value={3} id="Commercial Bank">Commercial Bank</MenuItem>
+  <MenuItem value="1" id="Bank Of Ceylon">Bank Of Ceylon</MenuItem>
+  <MenuItem value="2" id="Peoples Bank">Peoples Bank</MenuItem>
+  <MenuItem value="3" id="Commercial Bank">Commercial Bank</MenuItem>
 </Select>
 
 </FormControl>
+      </Grid>
+      
+      <Grid item md={6} sm={6} xs={12}>
   
+      <h4 className={style.dropdownName}>Bank Code</h4>
+       <TextField
+    id="accnum"
+    variant="outlined"
+    className={style.textboxinput}
+    value={payementData.Bankcode}
+    name="Bankcode"
+    onChange={handlePaymentDetailChange}
+    InputProps={{
+      classes: {
+        focused: style.focusedInput,
+        notchedOutline: style.whiteOutline,
+        input: style.whitePlaceholder,
+      },
+      style: {
+        color: 'white',
+      },
+      placeholder: 'Bankcode',
+    }}
+  />
+  {/* {BankcodeSample && <p>{BankcodeSample}</p>} */}
+      </Grid>
+      
+     
+    </Grid>
+{/* <p>Selected option: {getPaymentMethodName(selectedOption)}</p> */}
 
 </Grid>
-    
+)} 
+
+
+{payementData.PaymentMethod !== '2' && (
+<Grid item md={6} xs={6} sm={12}>
+
+<Grid container spacing={2}>
+      <Grid item md={6} sm={6} xs={12}>
+      <h4 className={style.textboxtitle}>Branch</h4>
+         
+         <Autocomplete
+               id="Branches"
+               options={Branches} 
+               getOptionLabel={(option) => option.label}
+               // value={payementData.Bank}
+               onChange={handlePaymentDetailChange}
+               renderInput={(params) => (
+                 <TextField
+                   {...params}
+                   variant="outlined"
+                   className={style.textboxinput}
+                   value={payementData.Branch}
+                    name="Branch"
+                   InputProps={{
+                     ...params.InputProps,
+                     classes: {
+                       focused: style.focusedInput,
+                       notchedOutline: style.whiteOutline,
+                       input: style.whitePlaceholder,
+                     },
+                     style: {
+                       color: 'white',
+                     },
+                   }}
+                   placeholder="Select Branch"
+                 />
+               )}
+             />
+      </Grid>
+      
+      <Grid item md={6} sm={6} xs={12}>
+  
+      <h4 className={style.dropdownName}>Branch Code</h4>
+        <TextField
+  id="Branchcode"
+  variant="outlined"
+  className={style.textboxinput}
+  value={payementData.Branchcode}
+  name="Branchcode"
+  onChange={handlePaymentDetailChange}
+  InputProps={{
+    classes: {
+      focused: style.focusedInput,
+      notchedOutline: style.whiteOutline,
+      input: style.whitePlaceholder,
+    },
+    style: {
+      color: 'white',
+    },
+    placeholder: 'Branchcode',
+  }}
+/>
+
+      </Grid>
+      
+     
+    </Grid>
+
+
+
+</Grid>
+    )} 
     </Grid>  
    
 
-    <Grid container spacing={2}>
-
-<Grid item md={6} xs={6} sm={12}>
-    
- 
-<h4 className={style.textboxtitle}>Branch</h4>
-         
-<Autocomplete
-      id="Branches"
-      options={Branches} // replace accountOptions with your array of options
-      getOptionLabel={(option) => option.label} // replace 'label' with the property name in your accountOptions array that represents the label to display
-      // value={payementData.Bank}
-      onChange={handlePaymentDetailChange}
-      renderInput={(params) => (
-        <TextField
-          {...params}
-          variant="outlined"
-          className={style.textboxinput}
-          InputProps={{
-            ...params.InputProps,
-            classes: {
-              focused: style.focusedInput,
-              notchedOutline: style.whiteOutline,
-              input: style.whitePlaceholder,
-            },
-            style: {
-              color: 'white',
-            },
-          }}
-          placeholder="Select Branch"
-        />
-      )}
-    />
-
-
-</Grid>
-
-<Grid item md={6} xs={6} sm={12}>
-
-<h4 className={style.textboxtitle}>Branch Code</h4>
-          
-    
-          <TextField
-            id="accnum"
-            variant="outlined"
-            className={style.textboxinput}
-            value={payementData.AccountNumber}
-            name="AccountNumber"
-            onChange={handlePaymentDetailChange}
-            InputProps={{
-              classes: {
-                focused: style.focusedInput,
-                notchedOutline: style.whiteOutline,
-                input: style.whitePlaceholder,
-              },
-              style: {
-                color: 'white', 
-              },
-              placeholder: 'Enter Account Number',
-            }}
-          />
-        
-     </Grid>
-     </Grid>
 
     <Grid container spacing={2}>
 
@@ -748,12 +954,6 @@ export  const TransportCompanyInsertGrid = () => {
 <br></br>
 <DataTable/>
 <br></br>
-
-
-
- 
-  
-
 
 <hr></hr>
 

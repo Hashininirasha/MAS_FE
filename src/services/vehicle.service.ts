@@ -40,4 +40,12 @@ export const getPlants = createAsyncThunk('get/Plants', async (companyId: any ) 
     
   })
  
- 
+  export const insertVehicle = createAsyncThunk('posts/vehicle', async (Vehicle:any) => {
+    try{
+    const response = await axios.post(`https://mas-tms-dev-api-eastus.azurewebsites.net/api/Vehicle/AddVehiclesDetails`)
+    return response.data;  
+    }
+    catch(e:any){
+       return e;
+    }  
+  })
