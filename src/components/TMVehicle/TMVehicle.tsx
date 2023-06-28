@@ -24,7 +24,7 @@ const TMVehicle = () => {
   // const organizationUnitIdList = useSelector((state: any) => state.ReducerVehicle.organizationUnitIdList);
   // const organizationUnitIdListshow = useSelector((state: any) => state.ReducerVehicle.organizationUnitIdList);
  const VehicleTypelist = useSelector((state: any) => state.ReducerVehicle.VehicleTypelist);
-//  const CompanyNamelist = [] as any[];
+
 
  const CompanyNamelist=useSelector((state: any) => state.ReducerVehicle.CompanyNamelist);
 
