@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getTransportCompanies, insertCompany } from '../../services/transportcompany.service';
+import { getBank, getSBUs, getTransportCompanies, insertCompany } from '../../services/transportcompany.service';
 
 
 
@@ -10,7 +10,9 @@ export const TransportCompany = createSlice({
     companyDetails:[],
     loading:false,
     notificationMessage:"",
-    paymentList :[] as any[]  
+    paymentList :[] as any[],  
+    SBUList :[] as any[],  
+    BankList:[] as any[],  
   },
   reducers: {
    
@@ -18,6 +20,15 @@ export const TransportCompany = createSlice({
       
       
     },
+
+    setSBUList: (state, action) => {
+      state.SBUList = action.payload;
+    },
+
+    setBankList: (state, action) => {
+      state.BankList = action.payload;
+    },
+
     removePaymentMethodFromList:(state,action)=>{
       const { paymentId } = action.payload;
       const index = state.paymentList.findIndex(item => item.id === paymentId);
@@ -27,7 +38,7 @@ export const TransportCompany = createSlice({
 
     },
     addPaymentMethodList:(state,action)=>{
-      state.paymentList = action.payload;
+      state.paymentList.push(action.payload);
     }
     
   },
@@ -38,6 +49,20 @@ export const TransportCompany = createSlice({
       builder.addCase(insertCompany.fulfilled, (state, action:any) => {
         state.loading=false
       })
+
+      builder.addCase(getSBUs.fulfilled, (state, action:any) => {
+        
+        state.SBUList = action.payload
+
+      })
+
+       builder.addCase(getBank.fulfilled, (state, action:any) => {
+        
+        state.BankList = action.payload
+
+      })
+
+
     }
 })
 

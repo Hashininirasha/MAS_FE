@@ -1,15 +1,15 @@
 interface ITransportCompany {
-    CompanyName: string,
-    RegisteredNumber: string,
-    AttachedSBU: string,
-    TelephoneNumber: string,
-    AddressLine1: string,
-    AddressLine2: string,
-    City: string
-    District: string,
-    Province:string,
-    PostalCode:string,
-    Email:string,
+    transCompany: string,
+    registeredNumber: string,
+    attachedSBUs: string,
+    telephoneNumber: string,
+    addressLine1: string,
+    addressLine2: string,
+    city: string
+    district: string,
+    province:string,
+    postalCode:string,
+    email:string,
     BankDetails:IPayementDetails[]
    
 }
@@ -24,8 +24,8 @@ export interface IPayementDetails {
     Bankcode:string,
     Branch:string,
     Branchcode:string,
-    BeneficiaryName:string,
-    AccountNumber:string,
+    beneficiaryName:string,
+    accountNumber:string,
     Id:string
    
 
