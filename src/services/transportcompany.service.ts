@@ -24,6 +24,13 @@ import axios from 'axios';
     return  BankList;
   })
 
+  export const getBranch = createAsyncThunk('get/Branch', async () => {
+    const response = await axios.get(`https://mas-tms-dev-api-eastus.azurewebsites.net/api/Transport/GetBranchList`)
+    const BranchList:any[]=response.data;
+    return  BranchList;
+  })
+
+
 
 
 
