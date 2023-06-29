@@ -172,69 +172,10 @@ export  const TransportCompanyInsertGrid = () => {
       [name]: value,
     }));
   
-    if (name === 'Bank') {
-      // Set the Bank code based on the selected Bank
-      let Bankcode = '';
-      switch (value) {
-        case '1':
-          Bankcode = 'BOC123';
-          break;
-        case '2':
-          Bankcode = 'PB456';
-          break;
-        case '3':
-          Bankcode = 'CB789';
-          break;
-        default:
-          Bankcode = '';
-      }
-      setPayementData((prevState) => ({
-        ...prevState,
-        Bankcode: Bankcode,
-      }));
-  
-      if (Bankcode) {
-        setBankcodeSample(`Sample: ${Bankcode}`);
-      } else {
-        setBankcodeSample('');
-      }
-    }
-
-
-
-    if (name === 'Branch') {
-
-      let Branchcode = '';
-      switch (value) {
-        case '1':
-          Branchcode = '123';
-          break;
-        case '2':
-          Branchcode = '456';
-          break;
-        case '3':
-          Branchcode = '789';
-          break;
-        default:
-          Branchcode = '';
-      }
-      setPayementData((prevState) => ({
-        ...prevState,
-        Branchcode: Branchcode,
-      }));
-  
-      if (Branchcode) {
-        setBankcodeSample(`Sample: ${Branchcode}`);
-      } else {
-        setBankcodeSample('');
-      }
-    }
-
 
   };
   
 
- 
   const AddPaymentDetails=()=>{
     payementData.Id=new Date().getUTCMilliseconds().toString();
     BankDetailsList.push(payementData);
@@ -833,13 +774,10 @@ export  const TransportCompanyInsertGrid = () => {
           name="Bank"
           onClick={() => { setBankIsPlaceholderVisible(false) }}
         >
-          {/* <MenuItem value="1" id="Bank Of Ceylon">Bank Of Ceylon</MenuItem>
-          <MenuItem value="2" id="Peoples Bank">Peoples Bank</MenuItem>
-          <MenuItem value="3" id="Commercial Bank">Commercial Bank</MenuItem> */}
+
           {BankList.map((Bank:any) => (
             <MenuItem key={Bank.id} value={Bank.id}>
               {Bank.bankName}
-        
             </MenuItem>
           ))}
         </Select>
@@ -856,6 +794,7 @@ export  const TransportCompanyInsertGrid = () => {
         name="Bankcode"
         onChange={handlePaymentDetailChange}
         InputProps={{
+          readOnly: true,
           classes: {
             focused: style.focusedInput,
             notchedOutline: style.whiteOutline,
@@ -877,156 +816,80 @@ export  const TransportCompanyInsertGrid = () => {
 <Grid item md={6} xs={6} sm={12}>
 
 <Grid container spacing={2}>
-      <Grid item md={6} sm={6} xs={12}>
-      <h4 className={style.textboxtitle}>Branch</h4>
+    <Grid item md={6} sm={12} xs={12}>
+      <h4 className={style.dropdownName}>Branch</h4>
+      <FormControl className={style.dropdownform} 
+       sx={{
+        '& .MuiSelect-select': {
+          color: 'white',
+          '&:hover, &:focus': {
+            color: 'white',
+          },
+        },
+        '& .MuiSelect-icon': { color: 'white' },
+        '& .MuiOutlinedInput-root': {
+          color: 'white',
+          '& fieldset': { borderColor: 'white' },
+          '&:hover fieldset, &:focus fieldset': { borderColor: 'white' },
+        },
+        '& .MuiMenuItem-root': {
+          color: 'white',
+          '&:hover, &:focus': {
+            backgroundColor: 'white',
+          },
+        },
+      }}
+    >
+        <InputLabel
+          id="Bank"
+          className={style.dropdownInput}
+          shrink={!BranchisPlaceholderVisible}
+        >
+          {BranchisPlaceholderVisible ? 'Select Branch' : ''}
+        </InputLabel>
+        <Select
+          labelId="option1-label"
+          id="Branch"
+          value={payementData.Branch}
+          onChange={handlePaymentDetailChange}
+          name="Branch"
+          onClick={() => { seBranchIsPlaceholderVisible(false) }}
+        >
 
-     <FormControl
+          {BranchList.map((Branch:any) => (
+            <MenuItem key={Branch.id} value={Branch.id}>
+              {Branch.name}
          
-         className={style.dropdownform}
-  sx={{
-    '& .MuiSelect-select': {
-      color: 'white',
-      '&:hover, &:focus': {
-        color: 'white',
-      },
-    },
-    '& .MuiSelect-icon': { color: 'white' },
-    '& .MuiOutlinedInput-root': {
-      color: 'white',
-      '& fieldset': { borderColor: 'white' },
-      '&:hover fieldset, &:focus fieldset': { borderColor: 'white' },
-    },
-    '& .MuiMenuItem-root': {
-      color: 'white',
-      '&:hover, &:focus': {
-        backgroundColor: 'white',
-      },
-    },
-  }}
->
-  <InputLabel
-    id="Branch"
-    className={style.dropdownInput}
-    shrink={!BranchisPlaceholderVisible}
-   
-  >
-    {BranchisPlaceholderVisible ? 'Select Bank' : ''}
-  </InputLabel>
-  <Select
-  labelId="option1-label"
-  id="Branch"
-  value={payementData.Branch}
-  onChange={handlePaymentDetailChange}
-  name="Branch"
-  autoComplete="true"
-  onClick={() => { seBranchIsPlaceholderVisible(false) }}
->
-{BranchList.map((Branch:any) => (
-      <MenuItem key={Branch.id} value={Branch.id}>
-        {Branch.name}
-      </MenuItem>
-))}
-</Select>
-
-</FormControl>
-
-
-{/* <Autocomplete
-
-  value={payementData.Branch}
-  onChange={(event, newValue) => {
-    if (typeof newValue === 'string') {
-      setBranch({
-        title: newValue,
-        // value:payementData.Branch,
-        // name:"Branch",
-
-
-        
-      });
-    } else if (newValue && newValue.inputValue) {
-      // Create a new value from the user input
-      setBranch({
-        title: newValue.inputValue,
-       
-      });
-    } else {
-      setBranch(newValue);
-    }
-  }}
-  filterOptions={(options, params) => {
-    const filtered = filter(options, params);
-
-    const { inputValue } = params;
-    // Suggest the creation of a new value
-    const isExisting = options.some((option) => inputValue === option.title);
-    if (inputValue !== '' && !isExisting) {
-      filtered.push({
-        inputValue,
-        title: `Add "${inputValue}"`,
-      });
-    }
-
-    return filtered;
-  }}
-  selectOnFocus
-  clearOnBlur
-  handleHomeEndKeys
-  id="free-solo-with-text-demo"
-  options={top100Films}
-  getOptionLabel={(option) => {
-    // Value selected with enter, right from the input
-    if (typeof option === 'string') {
-      return option;
-    }
-    // Add "xxx" option created dynamically
-    if (option.inputValue) {
-      return option.inputValue;
-    }
-    // Regular option
-    return option.title;
-  }}
-  renderOption={(props, option) => <li {...props}>{option.title}</li>}
-  sx={{ width: 300 }}
-  freeSolo
-  renderInput={(params) => (
-    <TextField {...params} label="Free solo with text demo" />
-  )}
-  
-/> */}
-
-
-
-
-      </Grid>
-      
-      <Grid item md={6} sm={6} xs={12}>
-  
-      <h4 className={style.dropdownName}>Branch Code</h4>
-        <TextField
-  id="Branchcode"
-  variant="outlined"
-  className={style.textboxinput}
-  value={payementData.Branchcode}
-  name="Branchcode"
-  onChange={handlePaymentDetailChange}
-  InputProps={{
-    classes: {
-      focused: style.focusedInput,
-      notchedOutline: style.whiteOutline,
-      input: style.whitePlaceholder,
-    },
-    style: {
-      color: 'white',
-    },
-    placeholder: 'Branchcode',
-  }}
-/>
-
-      </Grid>
-      
-     
+            </MenuItem>
+          ))}
+        </Select>
+      </FormControl>
     </Grid>
+
+    <Grid item md={6} sm={12} xs={12}>
+      <h4 className={style.dropdownName}>Branch Code</h4>
+      <TextField
+        id="accnum"
+        variant="outlined"
+        className={style.textboxinput}
+        value={payementData.Branch && BranchList.find((Branch:any) => Branch.id === payementData.Branch)?.code || ""}
+        name="Branch"
+        onChange={handlePaymentDetailChange}
+        InputProps={{
+          readOnly: true,
+          classes: {
+            focused: style.focusedInput,
+            notchedOutline: style.whiteOutline,
+            input: style.whitePlaceholder,
+          },
+          style: {
+            color: 'white',
+          },
+          placeholder: 'Branch',
+        }}
+      />
+    </Grid>
+  </Grid>
 
 
 
