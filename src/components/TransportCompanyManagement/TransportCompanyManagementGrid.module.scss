@@ -189,6 +189,18 @@
   border: 1px solid white !important;
 }
 
+
+.cancle {
+  background-color: $black !important;
+  color: white !important;
+  font-weight: normal;
+  text-align: left;
+  text-transform: none !important;
+  border: 1px solid white !important;
+  margin-right: 10px !important;
+}
+
+
 .btnfirst {
   padding-left: 860px;
   padding-bottom: 10px;
@@ -256,7 +268,13 @@
 }
 
 
-
+.save {
+  background-color: red !important;
+  color: white !important;
+  font-weight: normal;
+  text-align: left;
+  text-transform: none !important;
+}
 
 
 

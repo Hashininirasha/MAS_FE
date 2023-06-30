@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 import { getBank, getBranch, getSBUs, getTransportCompanies, insertCompany } from '../../services/transportcompany.service';
-
+import { IpassengerDetails } from '../../types/TransportCompanyDto';
 
 
 export const TransportCompany = createSlice({
@@ -14,6 +14,7 @@ export const TransportCompany = createSlice({
     SBUList :[] as any[],  
     BankList:[] as any[],  
     BranchList:[] as any[], 
+    // passengerDetails:IpassengerDetails as any,
   },
   reducers: {
    
@@ -33,6 +34,8 @@ export const TransportCompany = createSlice({
     setBranchList: (state, action) => {
       state.BranchList = action.payload;
     },
+
+ 
 
     removePaymentMethodFromList:(state,action)=>{
       const { paymentId } = action.payload;

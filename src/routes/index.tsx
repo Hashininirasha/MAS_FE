@@ -9,7 +9,7 @@ import { TransportCompanyInsertGrid } from "../components/TransportCompanyManage
 import VehicleRequest from '../pages/TMVehicle/VehicleRequest'
 import DriverRequest from '../pages/TMDriver/DriverRequest'
 import UserProfile from '../pages/UserProfile/UserProfile'
-
+import ManageTransportCompnaies from '../pages/ManageTransportCompnaies/Managecompanies'
 
 
 const AppRoutes = () => {
@@ -62,9 +62,16 @@ const AppRoutes = () => {
         >
         </Route>
 
+        <Route
+          path={APP_ROUTES.MANAGE_TRANSPORT_COMPANIES}
+          element={<ManageTransportCompnaies/>}
+        >
+        </Route>
+
       </Routes>
     </BrowserRouter>
   );
 };
 
 export default AppRoutes;
+

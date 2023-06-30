@@ -20,7 +20,7 @@ export enum APP_ROUTES {
     TM_REQUEST_APPROVAL = '/request-approval',
     TM_VEHICLE_ALLOCATION = '/vehicle-allocation',
 
-    TRANSPORT_COMPANY = '/transport-company',
+    TRANSPORT_COMPANY = '/Manage-transport-compnaies/New-company',
 
 
     // SBU
@@ -28,5 +28,7 @@ export enum APP_ROUTES {
     
       //Profile
       MY_PROFILE = '/user-profile',
+
+      MANAGE_TRANSPORT_COMPANIES = '/Manage-transport-compnaies'
     
 }

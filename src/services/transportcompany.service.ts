@@ -1,5 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
+import { IpassengerDetails } from '../types/TransportCompanyDto';
 
   
   export const getTransportCompanies = createAsyncThunk('get/transportcompanies', async () => {
@@ -9,10 +10,10 @@ import axios from 'axios';
   })
 
 
-  export const getSBUs = createAsyncThunk('get/SBUs', async (userId: any) => {
+  export const getSBUs = createAsyncThunk('get/SBUs', async (userId: number) => {
     const response = await axios.get(`https://mas-tms-dev-api-eastus.azurewebsites.net/api/User/PassengerDetails?userId${userId}`)
-    const SBUList:any[]=response.data;
-    return  SBUList;
+    const passengerDetails:IpassengerDetails=response.data;
+    return  passengerDetails;
   })
 
 

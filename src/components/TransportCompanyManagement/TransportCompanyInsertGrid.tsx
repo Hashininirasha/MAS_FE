@@ -46,6 +46,8 @@ export  const TransportCompanyInsertGrid = () => {
 
   const BranchList=useSelector((state: any) => state.transportCompany.BranchList);
 
+  const SBUList=useSelector((state: any) => state.transportCompany.SBUList);
+
   // const [value, setValue] = React.useState<FilmOptionType | null>(null);
   useEffect(() => {
 
@@ -55,7 +57,10 @@ export  const TransportCompanyInsertGrid = () => {
 
     store.dispatch(getBranch());
 
-  }, []);
+    store.dispatch(getSBUs(16));
+  }, [16]);
+
+
 
 
   
@@ -986,10 +991,14 @@ export  const TransportCompanyInsertGrid = () => {
 <br></br>
 
 <hr></hr>
+<br></br>
+<Grid item md={4} xs={8} sm={8}>
+    <div  className={style.btnfirst}>
+<Button className={style.cancle} onClick={() => store.dispatch(insertCompany(transportCompanyData))}>Cancle</Button>
 
-
-<Button className={style.clear} onClick={() => store.dispatch(insertCompany(transportCompanyData))}>Save</Button>
-
+<Button className={style.save} onClick={() => store.dispatch(insertCompany(transportCompanyData))}>Save</Button>
+</div>
+  </Grid>
 </section>
    
    </div>

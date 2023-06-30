@@ -15,7 +15,6 @@ export const ReducerVehicle = createSlice({
     VehicleTypelist:[] as any[],
     CompanyNamelist:[] as any[],
     companyId:[] as any[],
-    
   },
   reducers: {
    

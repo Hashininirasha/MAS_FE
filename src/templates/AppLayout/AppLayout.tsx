@@ -67,22 +67,6 @@ const AppLayout: React.FC<{
               </NavLink>
             </aside>
 
-           {/* TRANSPORT COMPANY */}
-            <aside className={"links"}>
-              <NavLink
-                style={{ textDecoration: "none" }}
-                className={({ isActive }) =>
-                  isActive ? "layout-row is-active" : "layout-row"
-                }
-                to={APP_ROUTES.TRANSPORT_COMPANY}
-              >
-                <div className={`navBarContent navLink layout-row`}>
-                  <span>Transport company</span>
-                </div>
-              </NavLink>
-            </aside>
-
-
             <aside className={"links"}>
               <NavLink
                 style={{ textDecoration: "none" }}
@@ -153,6 +137,20 @@ const AppLayout: React.FC<{
              </div>
            </NavLink>
        </aside>
+
+       <aside className={'links'}>
+        <NavLink
+           style={{ textDecoration: 'none' }}
+           className={({ isActive }) => (isActive ? 'layout-row is-active' : 'layout-row')}
+           to={APP_ROUTES.MANAGE_TRANSPORT_COMPANIES}
+         >
+           <div
+             className={`navBarContent navLink layout-row`}
+           >
+             <span>Manage Transport Companies</span>
+           </div>
+         </NavLink>
+     </aside>
            
           </aside>
         </aside>
