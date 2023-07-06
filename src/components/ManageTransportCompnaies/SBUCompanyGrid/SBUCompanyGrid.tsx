@@ -6,7 +6,7 @@ import { APP_ROUTES, APP_TABLE_CONFIGS, REQUEST_STATUS } from '../../../utilitie
 import { StyledStatusApproved, StyledStatusDraft, StyledStatusPending, StyledStatusRejected, StyledTableCell } from '../../../assets/theme/theme'
 import moment from 'moment'
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
-import { ApprovalRequestListDto, SortMetaDto } from '../../../utilities/models'
+import { ApprovalCompanyListDto, SortMetaDto } from '../../../utilities/models'
 import { AppSkeleton, CustomButton, CustomHeaderCell } from '../../Shared'
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -19,7 +19,7 @@ const SBUCompnayGrid: React.FC<{
   onHandleChangePage(event: unknown, newPage: number): void,
   onHandleChangeRowsPerPage(event: React.ChangeEvent<HTMLInputElement>): void,
   approvalRequestDataIsLoading: boolean,
-  filteredList: ApprovalRequestListDto[],
+  filteredList: ApprovalCompanyListDto[],
   sortMeta: SortMetaDto,
   onSortHandle(col: string): void
   onFilterHandle(col: string, value: string): void;
@@ -63,12 +63,12 @@ const SBUCompnayGrid: React.FC<{
           )}
           {!props.approvalRequestDataIsLoading && props.filteredList.length > 0 &&
             <TableBody>
-              {props.filteredList.slice(props.page * props.rowsPerPage, props.page * props.rowsPerPage + props.rowsPerPage).map((req: ApprovalRequestListDto) => (
-                <TableRow key={req.requestId}>
-                  <StyledTableCell >{req.requestId}</StyledTableCell>
-                  <StyledTableCell >{req.requestType}</StyledTableCell>
-                  <StyledTableCell >{req.createdBy}</StyledTableCell>
-                  <StyledTableCell >{req.createdUser}</StyledTableCell>
+              {props.filteredList.slice(props.page * props.rowsPerPage, props.page * props.rowsPerPage + props.rowsPerPage).map((req: ApprovalCompanyListDto) => (
+                <TableRow key={req.companyId}>
+                  <StyledTableCell >{req.companyId}</StyledTableCell>
+                  <StyledTableCell >{req.companyName}</StyledTableCell>
+                  <StyledTableCell >{req.registeredNumber}</StyledTableCell>
+                  
                   <StyledTableCell>
                     {req.status === REQUEST_STATUS.APPROVED_LM || req.status === REQUEST_STATUS.APPROVED_TM ? (
                       <StyledStatusApproved>
@@ -88,9 +88,9 @@ const SBUCompnayGrid: React.FC<{
                       </StyledStatusDraft>
                     )}
                   </StyledTableCell>
-                  <StyledTableCell >{req.projectedCost}</StyledTableCell>
-                  <StyledTableCell >{req.sbu}</StyledTableCell>
-                  <StyledTableCell >{req.plant}</StyledTableCell>
+                  <StyledTableCell >{req.paymentMethod}</StyledTableCell>
+                  <StyledTableCell >{req.address}</StyledTableCell>
+                  <StyledTableCell >{req.phoneNumber}</StyledTableCell>
                 
                   
                 

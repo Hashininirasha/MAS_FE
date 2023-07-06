@@ -11,10 +11,10 @@ export const TransportCompany = createSlice({
     loading:false,
     notificationMessage:"",
     paymentList :[] as any[],  
-    SBUList :[] as any[],  
+    // SBUList :[] as any[],  
     BankList:[] as any[],  
     BranchList:[] as any[], 
-    // passengerDetails:IpassengerDetails as any,
+    passengerDetails:{}
   },
   reducers: {
    
@@ -23,9 +23,9 @@ export const TransportCompany = createSlice({
       
     },
 
-    setSBUList: (state, action) => {
-      state.SBUList = action.payload;
-    },
+    // setSBUList: (state, action) => {
+    //   state.SBUList = action.payload;
+    // },
 
     setBankList: (state, action) => {
       state.BankList = action.payload;
@@ -34,6 +34,11 @@ export const TransportCompany = createSlice({
     setBranchList: (state, action) => {
       state.BranchList = action.payload;
     },
+
+    setpassengerDetails: (state, action) => {
+      state.passengerDetails = action.payload;
+    },
+
 
  
 
@@ -58,11 +63,11 @@ export const TransportCompany = createSlice({
         state.loading=false
       })
 
-      builder.addCase(getSBUs.fulfilled, (state, action:any) => {
+      // builder.addCase(getSBUs.fulfilled, (state, action:any) => {
         
-        state.SBUList = action.payload
+      //   state.SBUList = action.payload
 
-      })
+      // })
 
        builder.addCase(getBank.fulfilled, (state, action:any) => {
         
@@ -73,6 +78,12 @@ export const TransportCompany = createSlice({
       builder.addCase(getBranch.fulfilled, (state, action:any) => {
         
         state.BranchList = action.payload
+
+      })
+
+      builder.addCase(getSBUs.fulfilled, (state, action:any) => {
+        
+        state.passengerDetails = action.payload
 
       })
 

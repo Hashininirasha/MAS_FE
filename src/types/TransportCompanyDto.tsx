@@ -18,15 +18,16 @@ interface ITransportCompany {
 export interface IPayementDetails {
 
 
-    CurrancyType:string,
-    PaymentMethod:string,
-    Bank:string,
+    currency:string,
+    paymentMethod:string,
+    bank:string,
     Bankcode:string,
-    Branch:string,
+    branch:string,
     Branchcode:string,
     beneficiaryName:string,
     accountNumber:string,
     Id:string
+    isActive: boolean,
    
 
 }
@@ -36,7 +37,7 @@ export interface IpassengerDetails{
     email: string,
     contactNumber:string,
     nic:string,
-    Data:IData_passengerDetails[]
+    data:IData_passengerDetails[]
 
 }
 
@@ -47,30 +48,15 @@ interface IData_passengerDetails{
 }
 
 
-export interface IcompanyGridDetails {
-    companyId: number,
-    requestType: string,
-    createdBy: string,
-    createdUser: string,
-    status: 'Pending' | 'Draft' | 'Approved by LM' | 'Rejected',
-    projectedCost: number,
-    createdDatetime: string,
-    sbu: string,
-    plant: string,
-    department: string,
-    from: string,
-    to: string,
-    departureDateTime: string,
-    returnDateTime: string,
-    passengerCount: number,
-    preferredVehicle: string,
-    package: boolean,
-    cubicMeterage: number,
-    instruction: string,
-    purpose: string,
-    approver: string,
-    cbm?: number,
-    redirected?: string,
-}
+
+
+
+
+
+
+
+
+
+
 
 export default ITransportCompany;

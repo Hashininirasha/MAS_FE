@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { AppLayout } from '../../templates'
 import { useDispatch, useSelector } from 'react-redux'
-import { ApplicationStateDto, ApprovalRequestListDto, SortMetaDto } from '../../utilities/models'
+import { ApplicationStateDto, ApprovalCompanyListDto, ApprovalRequestListDto, SortMetaDto } from '../../utilities/models'
 import { requestActions } from '../../redux/actions'
 import { APP_ACTION_STATUS, APP_TABLE_CONFIGS } from '../../utilities/constants'
 import SBUCompnayGrid from '../../components/ManageTransportCompnaies/SBUCompanyGrid/SBUCompanyGrid'
@@ -17,26 +17,26 @@ const ManageTransportCompnaies = () => {
   const [page, setPage] = useState(0)
   const [rowsPerPage, setRowsPerPage] = useState(APP_TABLE_CONFIGS.DEFAULT_ROWS_PER_PAGE)
   const [sortMeta, setSortMeta] = useState<SortMetaDto>(INITIAL_SORT_META);
-  const [filteredList, setFilteredList] = useState<ApprovalRequestListDto[]>([])
+  const [filteredList, setFilteredList] = useState<ApprovalCompanyListDto[]>([])
 
-  const getApprovalRequestDataResponse = useSelector((state: ApplicationStateDto) => state.request.approvalRequestList)
+  const getApprovalCompanyDataResponse = useSelector((state: ApplicationStateDto) => state.request.approvalCompanyList)
+  
+  // useEffect(() => {
+  //   getRequestList()
+    
+  // }, [])
   
   useEffect(() => {
-    getRequestList()
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-  
-  useEffect(() => {
-    if (getApprovalRequestDataResponse.status === APP_ACTION_STATUS.SUCCESS){
-      if (getApprovalRequestDataResponse.data.length > 0) setFilteredList(getApprovalRequestDataResponse.data)
+    if (getApprovalCompanyDataResponse.status === APP_ACTION_STATUS.SUCCESS){
+      if (getApprovalCompanyDataResponse.data.length > 0) setFilteredList(getApprovalCompanyDataResponse.data)
       else setFilteredList([])
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [getApprovalRequestDataResponse.status])
+  }, [getApprovalCompanyDataResponse.status])
   
-  const getRequestList = async () => {
-    dispatch(requestActions.getApprovalRequestsList())
-  }
+  // const getRequestList = async () => {
+  //   dispatch(requestActions.getApprovalRequestsList())
+  // }
   
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage)
@@ -78,7 +78,7 @@ const ManageTransportCompnaies = () => {
   };
 
   const onFilterHandle = (col: string, value: string) => {
-    const filtered = getApprovalRequestDataResponse.data.filter((item) => {
+    const filtered = getApprovalCompanyDataResponse.data.filter((item) => {
       const _value = (item as any)[col];
       if (typeof _value === "boolean") {
         return _value ? value === "Yes" : value === "No";
@@ -90,8 +90,8 @@ const ManageTransportCompnaies = () => {
   };
   const getFilterList = (col: string): string[] => {
     if (col === "createdDatetime" || col === "departureDateTime" || col === "returnDateTime") return APP_TABLE_CONFIGS.DATE_TIME_FILTERATION_KEYS;
-    if (!getApprovalRequestDataResponse.isLoading)
-    return getApprovalRequestDataResponse.data
+    if (!getApprovalCompanyDataResponse.isLoading)
+    return getApprovalCompanyDataResponse.data
       .map((item) => {
         const value = (item as any)[col];
         if (typeof value === "boolean") {
@@ -113,7 +113,7 @@ const ManageTransportCompnaies = () => {
             rowsPerPage={rowsPerPage}
             onHandleChangePage={handleChangePage}
             onHandleChangeRowsPerPage={handleChangeRowsPerPage}
-            approvalRequestDataIsLoading={getApprovalRequestDataResponse.isLoading}
+            approvalRequestDataIsLoading={getApprovalCompanyDataResponse.isLoading}
             filteredList={filteredList || []}
             sortMeta={sortMeta}
             onSortHandle={onSortHandle}

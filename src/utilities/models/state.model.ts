@@ -1,4 +1,5 @@
 import { StateObjectDto } from "./common.model";
+import { ApprovalCompanyListDto } from "./companysummary.model";
 import { RequestListDto, ApprovalRequestListDto } from "./request.model";
 
 export interface RequestStateDto {
@@ -6,6 +7,7 @@ export interface RequestStateDto {
     editRequest: StateObjectDto<null>,
     requestList: StateObjectDto<RequestListDto[]>,
     approvalRequestList: StateObjectDto<ApprovalRequestListDto[]>,
+    approvalCompanyList: StateObjectDto<ApprovalCompanyListDto[]>
 }
 
 export interface VehicleStateDto {
@@ -16,3 +18,4 @@ export interface ApplicationStateDto {
     request: RequestStateDto
     vehicle: VehicleStateDto
 }
+

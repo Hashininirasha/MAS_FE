@@ -1,1 +1,1 @@
-export { default as LmDashboardGrid } from './SBUCompanyGrid/SBUCompanyGrid'
+export { default as SBUCompnayGrid } from './SBUCompanyGrid/SBUCompanyGrid'

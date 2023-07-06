@@ -360,7 +360,7 @@ export const REQUEST_DATA_LIST = [
 
 export const APPROVAL_REQUEST_DATA_LIST = [
   {
-    "companyId": "REQ1",
+    "requestId": "REQ1",
     "requestType": "Request Type 1",
     "createdBy": "Created By 1",
     "createdUser": "Created User 1",
@@ -428,7 +428,37 @@ export const APPROVAL_REQUEST_DATA_LIST = [
     "purpose": "Purpose 3",
     "approver": "Approver 3"
   },
+]
 
-
- 
+export const COMPANY_DATA_LIST = [
+  {
+    "companyId": 1,
+    "companyName": "Request Type 1",
+    "registeredNumber": "Created By 1",
+    "sbu": "SBu1",
+    "status": "Active",
+    "paymentMethod": "Cash",
+    "address": "address",
+    "phoneNumber": "0145265658",
+  },
+  {
+    "companyId": 2,
+    "companyName": "Request Type 1",
+    "registeredNumber": "Created By 1",
+    "sbu": "SBu1",
+    "status": "Active",
+    "paymentMethod": "Cash",
+    "address": "address",
+    "phoneNumber": "0145265658",
+  },
+  {
+    "companyId": 3,
+    "companyName": "Request Type 1",
+    "registeredNumber": "Created By 1",
+    "sbu": "SBu1",
+    "status": "Active",
+    "paymentMethod": "Cash",
+    "address": "address",
+    "phoneNumber": "0145265658",
+  },
 ]

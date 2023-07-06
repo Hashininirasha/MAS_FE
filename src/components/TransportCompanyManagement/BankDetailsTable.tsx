@@ -6,10 +6,12 @@ import Switch from '@mui/material/Switch';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import { removePaymentMethodFromList } from '../../redux/reducers/transportcompany.reducer';
+import { getBank } from '../../services/transportcompany.service';
+import store from '../../redux/store';
 
 export default function DataTable() {
   const dispatch = useDispatch();
-debugger
+
   const paymentMethods = useSelector((state:any) => state.transportCompany.paymentList);
 
 
@@ -20,13 +22,24 @@ debugger
   }
   // {params.value as React.ReactNode}
   const currancyTypearray = [{id:1,name:"LKR"},{id:2,name:"USD"}]
+  console.log("currancyTypearray", currancyTypearray)
   const PaymentMethodArray = [{id:"1",name:"Cash Check"},{id:"2",name:"Bank Trasfer"}]
-  const Banks = [{id:"1",name:"Bank Of Ceylon"},{id:"2",name:"Peoples Bank"} ,{id:"3",name:"Commercial Bank"}]
-
-  const Branch = [{id:"1",name:"Bambalapitiya"},{id:"2",name:"Ratnapura"} ,{id:"3",name:"Moratuwa"}]
 
 
+  const BankList = useSelector((state: any) => state.transportCompany.BankList);
+  const bankArray = BankList.map((bank: any) => bank); 
+  console.log("bankArray",bankArray)
 
+  const BranchList=useSelector((state: any) => state.transportCompany.BranchList);
+  const branchArray = BranchList.map((branch: any) => branch); 
+  console.log("branchArray",branchArray)
+  
+  useEffect(() => {
+
+    store.dispatch(getBank());
+
+   
+  },);
 
 
 
@@ -35,7 +48,7 @@ debugger
   const columns: GridColDef[] = [
 
     {
-      field: 'CurrancyType',
+      field: 'currency',
       headerName: 'CurrancyType',
       width: 220,
       renderHeader: () => <span className={styles.columnHeader}>CurrancyType</span>,
@@ -46,7 +59,7 @@ debugger
     },
   
     {
-      field: 'PaymentMethod',
+      field: 'paymentMethod',
       headerName: 'Payment Method',
       width: 220,
       renderHeader: () => <span className={styles.columnHeader}>Payment Method</span>,
@@ -56,12 +69,19 @@ debugger
       ),
     },
     {
-      field: 'Bank',
+      field: 'bank',
       headerName: 'Bank',
       width: 150,
       renderHeader: () => <span className={styles.columnHeader}>Bank</span>,
       renderCell: (params: GridCellParams) => (
-          <span className={styles.cell}>{Banks.find((item:any) => item.id === (params.value as React.ReactNode) )?.name}</span>
+        <div>
+        <span className={styles.cell}>
+          {bankArray.find((item: any) => item.id === (params.value as React.ReactNode))?.bankName}
+        </span>
+        <span className={styles.cell} style={{marginLeft: "50px"}}>
+          {bankArray.find((item: any) => item.id === (params.value as React.ReactNode))?.code}
+        </span>
+      </div>          
         ),
       },
 
@@ -71,17 +91,17 @@ debugger
         width: 150,
         renderHeader: () => <span className={styles.columnHeader}>Bank code</span>,
         renderCell: (params: GridCellParams) => (
-            <span className={styles.cell}>{params.value as React.ReactNode}</span>
+            <span className={styles.cell}>{bankArray.find((item:any) => item.id === (params.value as React.ReactNode) )?.code}</span>
           ),
         },
       
         {
-          field: 'Branch',
+          field: 'branch',
           headerName: 'Branch',
           width: 150,
           renderHeader: () => <span className={styles.columnHeader}>Branch</span>,
           renderCell: (params: GridCellParams) => (
-              <span className={styles.cell}>{Branch.find((item:any) => item.id === (params.value as React.ReactNode) )?.name}</span>
+              <span className={styles.cell}>{branchArray.find((item:any) => item.id === (params.value as React.ReactNode) )?.name}</span>
             ),
           },
     
@@ -115,7 +135,7 @@ debugger
       ),
     },
     {
-      field: 'action',
+      field: 'isActive',
       headerName: 'Action',
       width: 150,
       renderHeader: () => <span className={styles.columnHeader}>Action</span>,
@@ -137,7 +157,7 @@ debugger
       ),
     },
   ];
-debugger
+
   return (
    
     <div className={styles.table} style={{ height: 360, width: '100%' }}>

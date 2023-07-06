@@ -9,21 +9,8 @@ import DataTable from './BankDetailsTable';
 import { useDispatch, useSelector } from 'react-redux';
 import { addPaymentMethodList } from '../../redux/reducers/transportcompany.reducer';
 
-// const filter = createFilterOptions<FilmOptionType>();
+import { ORGANIZATION_UNIT_TYPES } from '../../utilities/constants';
 
-// interface FilmOptionType {
-//   inputValue?: string;
-//   title: string;
-//   year?: number;
-// }
-
-
-// const top100Films: readonly FilmOptionType[] = [
-//   { title: 'The Shawshank Redemption', year: 1994 },
-//   { title: 'The Godfather', year: 1972 },
-//   { title: 'The Godfather: Part II', year: 1974 },
-
-// ];
 
 const BankDetailsList:IPayementDetails[]=[]
 
@@ -35,7 +22,7 @@ export  const TransportCompanyInsertGrid = () => {
 
   const [sbu, setSbu] = useState('')
 
-  const [Bank, setBank] = useState('')
+  const [bank, setbank] = useState('')
   const dispatch = useDispatch();
 
   const [userId, setuserId] = useState(0)
@@ -46,12 +33,13 @@ export  const TransportCompanyInsertGrid = () => {
 
   const BranchList=useSelector((state: any) => state.transportCompany.BranchList);
 
-  const SBUList=useSelector((state: any) => state.transportCompany.SBUList);
+  // const SBUList=useSelector((state: any) => state.transportCompany.SBUList);
+
+  const passengerDetails=useSelector((state: any) => state.transportCompany.passengerDetails);
+
 
   // const [value, setValue] = React.useState<FilmOptionType | null>(null);
   useEffect(() => {
-
-    // store.dispatch(getSBUs(userId));
 
     store.dispatch(getBank());
 
@@ -82,29 +70,31 @@ export  const TransportCompanyInsertGrid = () => {
 
   const paymentDetailsInitial: IPayementDetails={
    
-    Bank:"",
+    bank:"",
     beneficiaryName:"",
     accountNumber:"",
     Id:"",
-    CurrancyType:"",
-    PaymentMethod:"",
+    currency:"",
+    paymentMethod:"",
     Bankcode:"",
-    Branch:"",
+    branch:"",
     Branchcode:"",
+    isActive: true,
 
   }
 
   const payments: IPayementDetails={
    
-    Bank:Bank,
+    bank:bank,
     beneficiaryName:"",
     accountNumber:"",
     Id:"",
-    CurrancyType:CurrancyType,
-    PaymentMethod:PaymentMethod,
+    currency:"",
+    paymentMethod:"",
     Bankcode:"",
-    Branch:"",
+    branch:"",
     Branchcode:"",
+    isActive: true,
   }
 
   const transportCompany: ITransportCompany = {
@@ -140,15 +130,16 @@ export  const TransportCompanyInsertGrid = () => {
 
   const [payementData, setPayementData] = useState({
 
-    Bank:Bank, 
+    bank:bank, 
     beneficiaryName:payments.beneficiaryName,
     accountNumber:payments.accountNumber,
     Id: "",
-    CurrancyType:CurrancyType,
-    PaymentMethod:PaymentMethod,
+    currency:payments.currency,
+    paymentMethod:payments.paymentMethod,
     Bankcode:payments.Bankcode,
-    Branch:payments.Branch,
+    branch:payments.branch,
     Branchcode:payments.Branchcode,
+    isActive:payments.isActive,
 
   });
 
@@ -197,15 +188,28 @@ export  const TransportCompanyInsertGrid = () => {
     setPayementData(paymentDetailsInitial);
   }
 
+  const [SBUvalue, setSBUValue] = useState(null);
 
-
-  const  Branches = [
-    { label: 'The Shawshank Redemption', year: 1994 },
-  { label: 'The Godfather', year: 1972 },
-  ]
-
-
+  useEffect(() => {
+    if (passengerDetails && passengerDetails.data) {
+      const foundValue = passengerDetails.data.find((a:any) => a.type === ORGANIZATION_UNIT_TYPES.SBU);
   
+      if (foundValue) {
+        setSBUValue(foundValue);
+        settransportCompanyData((prevData) => ({
+          ...prevData,
+          attachedSBUs: foundValue.name,
+        }));
+      } else {
+        setSBUValue(null);
+        settransportCompanyData((prevData) => ({
+          ...prevData,
+          attachedSBUs: '',
+        }));
+      }
+    }
+  }, [passengerDetails]);
+
 
   return (
 <React.Fragment>
@@ -296,52 +300,38 @@ export  const TransportCompanyInsertGrid = () => {
 <Grid item md={6} xs={6} sm={12}>
 
 <h4 className={style.dropdownName}>Attached SBUs</h4>
-<FormControl className={style.dropdownform}
-  sx={{
-    '& .MuiSelect-select': {
-      color: 'white',
-      '&:hover, &:focus': {
-        color: 'white',
-      },
-    },
-    '& .MuiSelect-icon': { color: 'white' },
-    '& .MuiOutlinedInput-root': {
-      color: 'white',
-      '& fieldset': { borderColor: 'white' },
-      '&:hover fieldset, &:focus fieldset': { borderColor: 'white' },
-    },
-    '& .MuiMenuItem-root': {
-      color: 'white',
-      '&:hover, &:focus': {
-        backgroundColor: 'white',
-      },
-    },
-  }}
->
-  <InputLabel
-    id="sbu"
-    className={style.dropdownInput}
-    shrink={!SBUisPlaceholderVisible}
-   
-   
-  >
-    {SBUisPlaceholderVisible ? 'Select Attached SBUs' : ''}
-  </InputLabel>
-  <Select
-    labelId="option1-label"
-    id="option1"
-    value={transportCompanyData.attachedSBUs}
-    onChange={handleChange}
-    name="attachedSBUs"
-    onClick={()=>{setSBUIsPlaceholderVisible(false)}}>
 
-    {/* {SBUList.map((SBU:any) => (
-      <MenuItem key={SBU.type} value={SBU.type}>
-        {SBU.name}
-      </MenuItem>
-    ))} */}
-  </Select>
-</FormControl>
+<TextField
+            id="tele_num"
+            variant="outlined"
+            className={style.textboxinput}
+            value={transportCompanyData.attachedSBUs}
+            name="attachedSBUs"
+            onChange={handleChange}
+            InputProps={{
+              classes: {
+                focused: style.focusedInput,
+                notchedOutline: style.whiteOutline,
+                input: style.whitePlaceholder,
+              },
+              style: {
+                color: 'white', 
+              },
+             
+            }}
+          />
+
+  {/* <div>
+      {passengerDetails && passengerDetails.data && (
+        <p>{passengerDetails.data.find((a: any) => a.type === ORGANIZATION_UNIT_TYPES.SBU)?.name}</p>
+      )}
+    </div> */}
+{/* <div>
+      {value && (
+        <p>Value: {value.name}</p>
+      )}
+    </div> */}
+
 
 </Grid>
 
@@ -653,9 +643,9 @@ export  const TransportCompanyInsertGrid = () => {
   <Select
   labelId="option1-label"
   id="currancyTypearray"
-  value={payementData.CurrancyType}
+  value={payementData.currency}
   onChange={handlePaymentDetailChange}
-  name="CurrancyType"
+  name="currency"
   onClick={() => { setCurrancyTypeIsPlaceholderVisible(false) }}
 >
 {currancyTypearray.map((currancyTypearray:any) => (
@@ -716,8 +706,8 @@ export  const TransportCompanyInsertGrid = () => {
   <Select
     labelId="option1-label"
     id="option1"
-    value={payementData.PaymentMethod}
-    name="PaymentMethod"
+    value={payementData.paymentMethod}
+    name="paymentMethod"
     onChange={handlePaymentDetailChange}
     onClick={()=>{setPayMethodIsPlaceholderVisible(false)}}
   >
@@ -737,7 +727,7 @@ export  const TransportCompanyInsertGrid = () => {
   
 
       <Grid container spacing={2}>
-      {payementData.PaymentMethod !== '1' && (
+      {payementData.paymentMethod !== '1' && (
         <Grid item md={6} xs={12} sm={12}>
   <Grid container spacing={2}>
     <Grid item md={6} sm={12} xs={12}>
@@ -774,9 +764,9 @@ export  const TransportCompanyInsertGrid = () => {
         <Select
           labelId="option1-label"
           id="Bank"
-          value={payementData.Bank}
+          value={payementData.bank}
           onChange={handlePaymentDetailChange}
-          name="Bank"
+          name="bank"
           onClick={() => { setBankIsPlaceholderVisible(false) }}
         >
 
@@ -795,7 +785,7 @@ export  const TransportCompanyInsertGrid = () => {
         id="accnum"
         variant="outlined"
         className={style.textboxinput}
-        value={payementData.Bank && BankList.find((Bank:any) => Bank.id === payementData.Bank)?.code || ""}
+        value={payementData.bank && BankList.find((Bank:any) => Bank.id === payementData.bank)?.code || ""}
         name="Bankcode"
         onChange={handlePaymentDetailChange}
         InputProps={{
@@ -855,9 +845,9 @@ export  const TransportCompanyInsertGrid = () => {
         <Select
           labelId="option1-label"
           id="Branch"
-          value={payementData.Branch}
+          value={payementData.branch}
           onChange={handlePaymentDetailChange}
-          name="Branch"
+          name="branch"
           onClick={() => { seBranchIsPlaceholderVisible(false) }}
         >
 
@@ -877,7 +867,7 @@ export  const TransportCompanyInsertGrid = () => {
         id="accnum"
         variant="outlined"
         className={style.textboxinput}
-        value={payementData.Branch && BranchList.find((Branch:any) => Branch.id === payementData.Branch)?.code || ""}
+        value={payementData.branch && BranchList.find((Branch:any) => Branch.id === payementData.branch)?.code || ""}
         name="Branch"
         onChange={handlePaymentDetailChange}
         InputProps={{
