@@ -7,24 +7,24 @@ import NewUser from '../../components/UserProfile/NewUser'
 
 const UserProfile = () => {
 
-  const dispatch = useDispatch()
-  const [requestList, setRequestList] = useState<RequestListDto[]>([])
+  // const dispatch = useDispatch()
+  // const [CompanyList, setRequestList] = useState<RequestListDto[]>([])
 
-  const allRequests: RequestListDto[] = useSelector((state: ApplicationStateDto) => state.request.requestList.data)
+  // const allRequests: RequestListDto[] = useSelector((state: ApplicationStateDto) => state.request.CompanyList.data)
 
-  useEffect(() => {
-    getRequestList()
-  })
+  // useEffect(() => {
+  //   getRequestList()
+  // })
 
-  useEffect(() => {
-    setRequestList(allRequests)
-    console.log("allRequests", allRequests)
-  }, [allRequests])
+  // useEffect(() => {
+  //   setRequestList(allRequests)
+  //   console.log("allRequests", allRequests)
+  // }, [allRequests])
 
-  const getRequestList = async () => {
+  // const getRequestList = async () => {
  
-    dispatch(requestActions.getRequestsList())
-  }
+  //   dispatch(requestActions.getRequestsList())
+  // }
 
   return (
     <React.Fragment>

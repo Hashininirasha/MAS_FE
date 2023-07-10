@@ -2,8 +2,8 @@ import React from 'react'
 import style from './SBUCompanyGrid.module.scss'
 import { Box, IconButton, Paper, Table, TableBody, TableContainer, TableHead, TablePagination, TableRow, Tooltip, Typography } from '@mui/material'
 import { useNavigate } from 'react-router'
-import { APP_ROUTES, APP_TABLE_CONFIGS, REQUEST_STATUS } from '../../../utilities/constants'
-import { StyledStatusApproved, StyledStatusDraft, StyledStatusPending, StyledStatusRejected, StyledTableCell } from '../../../assets/theme/theme'
+import { APP_ROUTES, APP_TABLE_CONFIGS, COMPANY_REQUEST_STATUS } from '../../../utilities/constants'
+import { StyledActive, StyledStatusDraft, StyledStatusPending, StyledINActive, StyledTableCell } from '../../../assets/theme/theme'
 import moment from 'moment'
 import RemoveRedEyeOutlinedIcon from '@mui/icons-material/RemoveRedEyeOutlined';
 import { ApprovalCompanyListDto, SortMetaDto } from '../../../utilities/models'
@@ -65,23 +65,20 @@ const SBUCompnayGrid: React.FC<{
             <TableBody>
               {props.filteredList.slice(props.page * props.rowsPerPage, props.page * props.rowsPerPage + props.rowsPerPage).map((req: ApprovalCompanyListDto) => (
                 <TableRow key={req.companyId}>
+                  
                   <StyledTableCell >{req.companyId}</StyledTableCell>
                   <StyledTableCell >{req.companyName}</StyledTableCell>
                   <StyledTableCell >{req.registeredNumber}</StyledTableCell>
-                  
+                  <StyledTableCell >{req.sbu.name}</StyledTableCell>
                   <StyledTableCell>
-                    {req.status === REQUEST_STATUS.APPROVED_LM || req.status === REQUEST_STATUS.APPROVED_TM ? (
-                      <StyledStatusApproved>
+                    {req.status === COMPANY_REQUEST_STATUS.ACTIVE || req.status === COMPANY_REQUEST_STATUS.ACTIVE ? (
+                      <StyledActive>
                         {req.status}
-                      </StyledStatusApproved>
-                    ) : req.status === REQUEST_STATUS.REJECTED_LM || req.status === REQUEST_STATUS.REJECTED_TM ? (
-                      <StyledStatusRejected>
+                      </StyledActive>
+                    ) : req.status === COMPANY_REQUEST_STATUS.INACTIVE || req.status === COMPANY_REQUEST_STATUS.INACTIVE ? (
+                      <StyledINActive>
                         {req.status}
-                      </StyledStatusRejected>
-                    ) : req.status === REQUEST_STATUS.PENDING ? (
-                      <StyledStatusPending>
-                        {req.status}
-                      </StyledStatusPending>
+                      </StyledINActive>
                     ) : (
                       <StyledStatusDraft>
                         {req.status}

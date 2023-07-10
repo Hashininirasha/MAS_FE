@@ -306,13 +306,13 @@ const NewUser = () => {
 
 <Grid item xs={12}>
 
-<h4 className={style.headingtitlevehi} >Department</h4>
+{/* <h4 className={style.headingtitlevehi} >Department</h4>
 <InputLabel
   htmlFor="Department"
   className={style.label}
 >
   <p>Department</p>
-</InputLabel>
+</InputLabel> */}
 
 
 

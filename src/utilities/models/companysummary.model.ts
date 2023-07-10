@@ -1,4 +1,5 @@
-export interface SummaryGridDetails {
+export interface summaryGridDetailsDto {
+    id:number,
     companyId: number,
     companyName: string,
     registeredNumber: string,
@@ -6,10 +7,15 @@ export interface SummaryGridDetails {
     paymentMethod: string,
     address: string,
     phoneNumber: string,
+    sbu: {
+        id: number,
+        name: string
+      }
 }
 
 
 export interface ApprovalCompanyListDto {
+    id:number,
     companyId: number,
     companyName: string,
     registeredNumber: string,
@@ -17,4 +23,8 @@ export interface ApprovalCompanyListDto {
     paymentMethod: string,
     address: string,
     phoneNumber: string,
+    sbu: {
+        id: number,
+        name: string
+      }
 }

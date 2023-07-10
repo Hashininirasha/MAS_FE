@@ -7,20 +7,20 @@ import TMVehicle from '../../components/TMVehicle/TMVehicle'
 
 const VehicleRequest = () => {
 
-  const dispatch = useDispatch()
-  const [requestList, setRequestList] = useState<RequestListDto[]>([])
+  // const dispatch = useDispatch()
+  // const [requestList, setRequestList] = useState<RequestListDto[]>([])
 
-  const allRequests: RequestListDto[] = useSelector((state: ApplicationStateDto) => state.request.requestList.data)
+  // const allRequests: RequestListDto[] = useSelector((state: ApplicationStateDto) => state.request.requestList.data)
+
+  // // useEffect(() => {
+  // //   getRequestList()
+  // // })
 
   // useEffect(() => {
-  //   getRequestList()
-  // })
-
-  useEffect(() => {
-    setRequestList(allRequests)
-    console.log("allRequests", allRequests)
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [allRequests])
+  //   setRequestList(allRequests)
+  //   console.log("allRequests", allRequests)
+  // // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [allRequests])
 
   // const getRequestList = async () => {
  

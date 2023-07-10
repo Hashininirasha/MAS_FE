@@ -392,3 +392,12 @@ export const StyledStatusDraft = styled('div')(({ theme }) => ({
   color: theme.palette.common.white,
   cursor: 'pointer',
 }));
+
+export const StyledActive = styled('div')(({ theme }) => ({
+  color: theme.palette.success.main,
+  cursor: 'pointer',
+}));
+export const StyledINActive = styled('div')(({ theme }) => ({
+  color: theme.palette.error.main,
+  cursor: 'pointer',
+}));

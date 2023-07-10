@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { AppLayout } from '../../templates'
 import { useDispatch, useSelector } from 'react-redux'
-import { ApplicationStateDto, ApprovalCompanyListDto, ApprovalRequestListDto, SortMetaDto } from '../../utilities/models'
+import { ApplicationStateDto, ApprovalCompanyListDto, SortMetaDto } from '../../utilities/models'
 import { requestActions } from '../../redux/actions'
 import { APP_ACTION_STATUS, APP_TABLE_CONFIGS } from '../../utilities/constants'
 import SBUCompnayGrid from '../../components/ManageTransportCompnaies/SBUCompanyGrid/SBUCompanyGrid'
@@ -19,12 +19,12 @@ const ManageTransportCompnaies = () => {
   const [sortMeta, setSortMeta] = useState<SortMetaDto>(INITIAL_SORT_META);
   const [filteredList, setFilteredList] = useState<ApprovalCompanyListDto[]>([])
 
-  const getApprovalCompanyDataResponse = useSelector((state: ApplicationStateDto) => state.request.approvalCompanyList)
+  const getApprovalCompanyDataResponse = useSelector((state: ApplicationStateDto) => state.company.approvalCompanyList)
   
-  // useEffect(() => {
-  //   getRequestList()
+  useEffect(() => {
+    getCompanyList()
     
-  // }, [])
+  }, [])
   
   useEffect(() => {
     if (getApprovalCompanyDataResponse.status === APP_ACTION_STATUS.SUCCESS){
@@ -34,9 +34,9 @@ const ManageTransportCompnaies = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [getApprovalCompanyDataResponse.status])
   
-  // const getRequestList = async () => {
-  //   dispatch(requestActions.getApprovalRequestsList())
-  // }
+  const getCompanyList = async () => {
+    dispatch(requestActions.getApprovalRequestsList())
+  }
   
   const handleChangePage = (event: unknown, newPage: number) => {
     setPage(newPage)
@@ -78,7 +78,7 @@ const ManageTransportCompnaies = () => {
   };
 
   const onFilterHandle = (col: string, value: string) => {
-    const filtered = getApprovalCompanyDataResponse.data.filter((item) => {
+    const filtered = getApprovalCompanyDataResponse.data.filter((item:any) => {
       const _value = (item as any)[col];
       if (typeof _value === "boolean") {
         return _value ? value === "Yes" : value === "No";
@@ -89,17 +89,17 @@ const ManageTransportCompnaies = () => {
     setFilteredList(filtered);
   };
   const getFilterList = (col: string): string[] => {
-    if (col === "createdDatetime" || col === "departureDateTime" || col === "returnDateTime") return APP_TABLE_CONFIGS.DATE_TIME_FILTERATION_KEYS;
+    if (col === "companyName" || col === "registeredNumber" || col === "sbu" || col === "status") return APP_TABLE_CONFIGS.DATE_TIME_FILTERATION_KEYS;
     if (!getApprovalCompanyDataResponse.isLoading)
     return getApprovalCompanyDataResponse.data
-      .map((item) => {
+      .map((item:any) => {
         const value = (item as any)[col];
         if (typeof value === "boolean") {
           return value ? "Yes" : "No";
         }
         return value;
       })
-      .filter((value, index, array) => array.indexOf(value) === index);
+      .filter((value:any, index:any, array:any) => array.indexOf(value) === index);
       else return []
   };
 

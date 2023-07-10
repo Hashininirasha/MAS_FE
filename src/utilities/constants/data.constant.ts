@@ -25,7 +25,7 @@ export const REQUEST_DATA_LIST = [
     "approver": "Approver 1"
   },
   {
-    "requestId": 2,
+    "requestId": "ABC002",
     "requestType": "Type 2",
     "createdFor": "User 2",
     "createdDatetime": "2023-05-01T09:00:00",
