@@ -19,6 +19,10 @@ export const COMMON_ACTION_TYPES = {
   CLEAR_ALERT: '_CLEAR_ALERT'
 }
 
+export const TRANSPORT_ACTION_TYPE={
+  ADD_TRANSPORT_COMPANY:"ADD_TRANSPORT_COMPANY"
+}
+
 export const APP_ACTION_STATUS = {
   SUCCESS: 'success',
   ERROR: 'error',

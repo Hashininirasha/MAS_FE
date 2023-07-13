@@ -1,7 +1,7 @@
 interface ITransportCompany {
     transCompany: string,
     registeredNumber: string,
-    attachedSBUs: string,
+    attachedSBU: string,
     telephoneNumber: string,
     addressLine1: string,
     addressLine2: string,
@@ -10,7 +10,7 @@ interface ITransportCompany {
     province:string,
     postalCode:string,
     email:string,
-    BankDetails:IPayementDetails[]
+    bankDetails:IPayementDetails[]
    
 }
 
@@ -19,14 +19,14 @@ export interface IPayementDetails {
 
 
     currency:string,
-    paymentMethod:string,
-    bank:string,
-    Bankcode:string,
-    branch:string,
-    Branchcode:string,
+    paymentMethod:number,
+    bank:number,
+    // Bankcode:string,
+    branch:number,
+    // Branchcode:string,
     beneficiaryName:string,
     accountNumber:string,
-    Id:string
+    // Id:string
     isActive: boolean,
    
 
@@ -49,6 +49,26 @@ interface IData_passengerDetails{
 
 
 
+export interface ICompnayViewDetails {
+
+
+    id:number,
+    companyId: number,
+    companyName: string,
+    registeredNumber: string,
+    status: 'Active' | 'Inactive',
+    paymentMethod: string,
+    address: string,
+    phoneNumber: string,
+    sbu: Isbu_details[]
+   
+
+}
+
+interface Isbu_details{
+    id: number,
+    name: string
+}
 
 
 

@@ -14,9 +14,7 @@ import { IpassengerDetails } from '../types/TransportCompanyDto';
     const response = await axios.get(`https://mas-tms-dev-api-eastus.azurewebsites.net/api/User/PassengerDetails?userId${userId}`)
     const passengerDetails:IpassengerDetails=response.data;
     return  passengerDetails;
-  })
-
-
+  })  
 
 
   export const getBank = createAsyncThunk('get/Bank', async () => {
@@ -32,12 +30,17 @@ import { IpassengerDetails } from '../types/TransportCompanyDto';
   })
 
 
+  export const getCompanyViewList = createAsyncThunk('get/CompanyView', async () => {
+    const response = await axios.get(`https://mas-tms-dev-api-eastus.azurewebsites.net/api/Transport/GetCompanyDetails`)
+    const CompanyViewList:any[]=response.data;
+    return  CompanyViewList;
+  })
 
 
 
   export const insertCompany = createAsyncThunk('posts/createCompany', async (transportcompany:any) => {
     try{
-    const response = await axios.post(`https://mas-tms-dev-api-eastus.azurewebsites.net/api/Transport/Create`)
+    const response = await axios.post(`https://mas-tms-dev-api-eastus.azurewebsites.net/api/Transport/AddTransportCompany`)
     return response.data;  
     }
     catch(e:any){

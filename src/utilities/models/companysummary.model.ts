@@ -23,8 +23,15 @@ export interface ApprovalCompanyListDto {
     paymentMethod: string,
     address: string,
     phoneNumber: string,
-    sbu: {
-        id: number,
-        name: string
-      }
-}
+    sbu: Isbu_details[]
+   
+
+  }
+  
+  interface Isbu_details{
+      id: number,
+      name: string
+  }
+  
+  
+  

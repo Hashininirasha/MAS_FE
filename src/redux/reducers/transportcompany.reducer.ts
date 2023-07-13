@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit'
-import { getBank, getBranch, getSBUs, getTransportCompanies, insertCompany } from '../../services/transportcompany.service';
+import { getBank, getBranch, getCompanyViewList, getSBUs, getTransportCompanies, insertCompany } from '../../services/transportcompany.service';
 import { IpassengerDetails } from '../../types/TransportCompanyDto';
 
 
@@ -14,7 +14,8 @@ export const TransportCompany = createSlice({
     // SBUList :[] as any[],  
     BankList:[] as any[],  
     BranchList:[] as any[], 
-    passengerDetails:{}
+    passengerDetails:{},
+    CompanyViewList:[] as any[],
   },
   reducers: {
    
@@ -39,8 +40,10 @@ export const TransportCompany = createSlice({
       state.passengerDetails = action.payload;
     },
 
+    setCompanyViewDetails: (state, action) => {
+      state.CompanyViewList = action.payload;
+    },
 
- 
 
     removePaymentMethodFromList:(state,action)=>{
       const { paymentId } = action.payload;
@@ -60,7 +63,7 @@ export const TransportCompany = createSlice({
         
       })
       builder.addCase(insertCompany.fulfilled, (state, action:any) => {
-        state.loading=false
+        state.loading=false;
       })
 
       // builder.addCase(getSBUs.fulfilled, (state, action:any) => {
@@ -87,6 +90,11 @@ export const TransportCompany = createSlice({
 
       })
 
+      builder.addCase(getCompanyViewList.fulfilled, (state, action:any) => {
+        
+        state.CompanyViewList = action.payload
+
+      })
 
     }
 })

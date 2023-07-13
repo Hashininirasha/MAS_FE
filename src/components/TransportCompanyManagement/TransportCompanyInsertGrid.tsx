@@ -8,8 +8,9 @@ import { AppLayout } from '../../templates';
 import DataTable from './BankDetailsTable';
 import { useDispatch, useSelector } from 'react-redux';
 import { addPaymentMethodList } from '../../redux/reducers/transportcompany.reducer';
+import { useNavigate } from 'react-router-dom';
 
-import { ORGANIZATION_UNIT_TYPES } from '../../utilities/constants';
+import { APP_ROUTES, ORGANIZATION_UNIT_TYPES } from '../../utilities/constants';
 
 
 const BankDetailsList:IPayementDetails[]=[]
@@ -48,9 +49,10 @@ export  const TransportCompanyInsertGrid = () => {
     store.dispatch(getSBUs(16));
   }, [16]);
 
+  const navigate = useNavigate();
 
-
-
+  
+  
   
   const [selectedOption, setSelectedOption] = useState('');
   const [CurrancyType, setCurrancyType] = useState('');
@@ -58,7 +60,7 @@ export  const TransportCompanyInsertGrid = () => {
   // const [Bankcode, setBankcode] = useState('');
   // const [Branch, setBranch] = React.useState<FilmOptionType | null>(null);
   // const [Branchcode, setBranchcode] = useState('');
-  const currancyTypearray = [{id:1,name:"LKR"},{id:2,name:"USD"}]
+  const currancyTypearray = [{id:"LKR",name:"LKR"},{id:"USD",name:"USD"}]
 
 
   const [SBUisPlaceholderVisible, setSBUIsPlaceholderVisible] = React.useState(true);
@@ -70,37 +72,37 @@ export  const TransportCompanyInsertGrid = () => {
 
   const paymentDetailsInitial: IPayementDetails={
    
-    bank:"",
+    bank:0,
     beneficiaryName:"",
     accountNumber:"",
-    Id:"",
+    // Id:"",
     currency:"",
-    paymentMethod:"",
-    Bankcode:"",
-    branch:"",
-    Branchcode:"",
+    paymentMethod:0,
+    // Bankcode:"",
+    branch:0,
+    // Branchcode:"",
     isActive: true,
 
   }
 
   const payments: IPayementDetails={
    
-    bank:bank,
+    bank:0,
     beneficiaryName:"",
     accountNumber:"",
-    Id:"",
+    // Id:"",
     currency:"",
-    paymentMethod:"",
-    Bankcode:"",
-    branch:"",
-    Branchcode:"",
+    paymentMethod:0,
+    // Bankcode:"",
+    branch:0,
+    // Branchcode:"",
     isActive: true,
   }
 
   const transportCompany: ITransportCompany = {
     transCompany: "",
     registeredNumber: "",
-    attachedSBUs: sbu,
+    attachedSBU: sbu,
     telephoneNumber: "",
     addressLine1: "",
     addressLine2: "",
@@ -109,7 +111,7 @@ export  const TransportCompanyInsertGrid = () => {
     province:"",
     postalCode:"",
     email:"",
-    BankDetails:BankDetailsList
+    bankDetails:BankDetailsList
   };
 
   const [transportCompanyData, settransportCompanyData] = useState({
@@ -120,25 +122,33 @@ export  const TransportCompanyInsertGrid = () => {
     addressLine2:transportCompany.addressLine2,
     addressLine1:transportCompany.addressLine1,
     district: transportCompany.district,
-    BankDetails: BankDetailsList,
+    bankDetails: BankDetailsList,
     postalCode:transportCompany.postalCode,
     province:transportCompany.province,
-    attachedSBUs:transportCompany.attachedSBUs,
+    attachedSBU:transportCompany.attachedSBU,
     email:transportCompany.email,
     
   });
 
+  const handleSave = () => {
+    // console.log("transportCompanyData", transportCompanyData)
+    store.dispatch(insertCompany(transportCompanyData));
+    navigate(APP_ROUTES.MANAGE_TRANSPORT_COMPANIES);
+   debugger
+
+  };
+
   const [payementData, setPayementData] = useState({
 
-    bank:bank, 
+    bank:payments.bank, 
     beneficiaryName:payments.beneficiaryName,
     accountNumber:payments.accountNumber,
-    Id: "",
+    // Id: "",
     currency:payments.currency,
     paymentMethod:payments.paymentMethod,
-    Bankcode:payments.Bankcode,
+    // Bankcode:payments.Bankcode,
     branch:payments.branch,
-    Branchcode:payments.Branchcode,
+    // Branchcode:payments.Branchcode,
     isActive:payments.isActive,
 
   });
@@ -173,12 +183,12 @@ export  const TransportCompanyInsertGrid = () => {
   
 
   const AddPaymentDetails=()=>{
-    payementData.Id=new Date().getUTCMilliseconds().toString();
+    // payementData.accountNumber=new Date().getUTCMilliseconds().toString();
     BankDetailsList.push(payementData);
     setPayementData(paymentDetailsInitial);
     settransportCompanyData((prevState) => ({
       ...prevState,
-      BankDetails: BankDetailsList,
+      bankDetails: BankDetailsList,
     }));
     dispatch(addPaymentMethodList(payementData));
     
@@ -198,13 +208,13 @@ export  const TransportCompanyInsertGrid = () => {
         setSBUValue(foundValue);
         settransportCompanyData((prevData) => ({
           ...prevData,
-          attachedSBUs: foundValue.name,
+          attachedSBU: foundValue.id,
         }));
       } else {
         setSBUValue(null);
         settransportCompanyData((prevData) => ({
           ...prevData,
-          attachedSBUs: '',
+          attachedSBU: '',
         }));
       }
     }
@@ -302,11 +312,11 @@ export  const TransportCompanyInsertGrid = () => {
 <h4 className={style.dropdownName}>Attached SBUs</h4>
 
 <TextField
-            id="tele_num"
+            id="Sbu"
             variant="outlined"
             className={style.textboxinput}
-            value={transportCompanyData.attachedSBUs}
-            name="attachedSBUs"
+            value={transportCompanyData.attachedSBU}
+            name="attachedSBU"
             onChange={handleChange}
             InputProps={{
               classes: {
@@ -367,7 +377,7 @@ export  const TransportCompanyInsertGrid = () => {
       <Grid container spacing={2}>
 <Grid item md={6} xs={6} sm={12}>
 
-<h4 className={style.dropdownName}>email</h4>
+<h4 className={style.dropdownName}>Email</h4>
 <TextField
             id="reg_num"
             variant="outlined"
@@ -470,7 +480,7 @@ export  const TransportCompanyInsertGrid = () => {
   
       
  
-          <h4 className={style.textboxtitle}>city</h4>
+          <h4 className={style.textboxtitle}>City</h4>
           
           <TextField
             id="tele_num"
@@ -497,7 +507,7 @@ export  const TransportCompanyInsertGrid = () => {
 
 <Grid item md={6} xs={6} sm={12}>
    
-          <h4 className={style.textboxtitle} >district</h4>
+          <h4 className={style.textboxtitle} >District</h4>
           
           <TextField
             id="outcome"
@@ -533,7 +543,7 @@ export  const TransportCompanyInsertGrid = () => {
   
   
 
-<h4 className={style.textboxtitle}>province</h4>
+<h4 className={style.textboxtitle}>Province</h4>
          
           <TextField
             id="tele_num"
@@ -711,8 +721,8 @@ export  const TransportCompanyInsertGrid = () => {
     onChange={handlePaymentDetailChange}
     onClick={()=>{setPayMethodIsPlaceholderVisible(false)}}
   >
-   <MenuItem value="1" id="Cash_Check">Cash Check</MenuItem>
-    <MenuItem value="2" id="Bank_Transfer">Bank Transfer</MenuItem>
+   <MenuItem value={1} id="Cash_Check">Cash Check</MenuItem>
+    <MenuItem value={2} id="Bank_Transfer">Bank Transfer</MenuItem>
 
   </Select>
 </FormControl>
@@ -727,7 +737,7 @@ export  const TransportCompanyInsertGrid = () => {
   
 
       <Grid container spacing={2}>
-      {payementData.paymentMethod !== '1' && (
+      {payementData.paymentMethod !== 1 && (
         <Grid item md={6} xs={12} sm={12}>
   <Grid container spacing={2}>
     <Grid item md={6} sm={12} xs={12}>
@@ -782,11 +792,11 @@ export  const TransportCompanyInsertGrid = () => {
     <Grid item md={6} sm={12} xs={12}>
       <h4 className={style.dropdownName}>Bank Code</h4>
       <TextField
-        id="accnum"
+        id="Bankcode"
         variant="outlined"
         className={style.textboxinput}
         value={payementData.bank && BankList.find((Bank:any) => Bank.id === payementData.bank)?.code || ""}
-        name="Bankcode"
+        // name="Bankcode"
         onChange={handlePaymentDetailChange}
         InputProps={{
           readOnly: true,
@@ -864,11 +874,11 @@ export  const TransportCompanyInsertGrid = () => {
     <Grid item md={6} sm={12} xs={12}>
       <h4 className={style.dropdownName}>Branch Code</h4>
       <TextField
-        id="accnum"
+        id="branch"
         variant="outlined"
         className={style.textboxinput}
         value={payementData.branch && BranchList.find((Branch:any) => Branch.id === payementData.branch)?.code || ""}
-        name="Branch"
+        // name="Branch"
         onChange={handlePaymentDetailChange}
         InputProps={{
           readOnly: true,
@@ -986,7 +996,8 @@ export  const TransportCompanyInsertGrid = () => {
     <div  className={style.btnfirst}>
 <Button className={style.cancle} onClick={() => store.dispatch(insertCompany(transportCompanyData))}>Cancle</Button>
 
-<Button className={style.save} onClick={() => store.dispatch(insertCompany(transportCompanyData))}>Save</Button>
+<Button className={style.save} onClick={handleSave}>Save</Button>
+
 </div>
   </Grid>
 </section>
